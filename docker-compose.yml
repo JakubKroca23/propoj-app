@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  propoj-homepage:
+    image: nginx:alpine
+    container_name: propoj.app
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - Appwrite # Pokud chcete, aby kontejner viděl na Appwrite interně
+
+networks:
+  appwrite:
+    external: true
