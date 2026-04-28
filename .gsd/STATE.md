@@ -1,20 +1,17 @@
 # STATE.md
 
-**Status**: Milestone V2.0 Complete ✅
-**Current Phase**: N/A
-**Current Task**: Milestone V2.0 Closed
-**Blockers**: Žádné
+**Current Status**: 🛰 Milestone V3.0 In Progress
+**Last Updated**: 2026-04-28
+**Context Hygiene**: Clean
 
 ## Context
-Milník V2.0 byl úspěšně dokončen. Administrační systém a landing page jsou plně funkční a nasazené.
+Milník V3.0 se zaměřuje na nasazení aplikace `propoj.app` na vlastní Linux server pomocí Dockeru.
 
 ## Current Position
-- **Phase**: N/A
-- **Task**: N/A
-- **Status**: Completed
-
-## Last Session Summary
-Uzavřen milník V2.0. Veškeré úkoly byly verifikovány. Projekt je připraven na zahájení plánování milníku V3.0.
+- **Phase**: 2 (Server Setup & Run)
+- **Task**: Building and running container on server
+- **Status**: Executing
 
 ## Next Steps
-1. /start-milestone V3.0 — Definovat cíle pro příští milník.
+1. Verifikace funkčnosti na portu 80.
+2. Nastavení SSL (Phase 4).
