@@ -1,11 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { authMiddleware } from './middleware/auth';
 import statsRouter from './routes/stats';
 import terminalRouter from './routes/terminal';
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -24,5 +21,5 @@ app.use('/api/stats', authMiddleware, statsRouter);
 app.use('/api/terminal', authMiddleware, terminalRouter);
 
 app.listen(port, () => {
-  console.log(`Sidecar API listening at http://localhost:${port}`);
+  console.log(`Sidecar API listening at 0.0.0.0:${port}`);
 });
