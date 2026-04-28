@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+// Sidebar removed per request (left menu cleared)
 import Topbar from './Topbar';
+import Sidebar from './Sidebar';
 import ProjectPanel from '@/components/ui/ProjectPanel';
 import ContactPanel from '@/components/ui/ContactPanel';
 
@@ -14,13 +15,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-cyber-deep text-white overflow-hidden">
-      {/* Sidebar Navigation */}
-      <Sidebar 
-        onOpenPortfolio={() => setIsProjectsOpen(true)} 
-        onOpenContact={() => setIsContactOpen(true)} 
-      />
+      {/* Sidebar Navigation (empty per request) */}
+      <Sidebar onOpenPortfolio={() => setIsProjectsOpen(true)} onOpenContact={() => setIsContactOpen(true)} />
 
-      <div className="flex-1 flex flex-col relative overflow-hidden">
+      <div className="flex-1 flex flex-col relative overflow-hidden pt-10">
         {/* Top Header */}
         <Topbar />
 

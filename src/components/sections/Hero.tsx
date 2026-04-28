@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropojLogo from '@/components/ui/PropojLogo';
 import { Lock, Power } from 'lucide-react';
 
@@ -11,6 +11,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onEnter }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -23,6 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
     setIsExiting(true);
     setTimeout(() => {
       onEnter?.();
+      navigate('/dashboard');
     }, 1500);
   };
 
@@ -37,28 +39,38 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
         className="absolute inset-0 overflow-hidden pointer-events-none z-0"
         style={{ WebkitMaskImage: 'radial-gradient(circle, transparent 30%, black 60%)', maskImage: 'radial-gradient(circle, transparent 30%, black 60%)' }}
       >
-        {useMemo(() => [...Array(12)].map((_, i) => {
-          const duration = 4 + Math.random() * 6;
-          const delay = Math.random() * -duration;
-          const angle = Math.random() * Math.PI * 2;
-          return (
-            <motion.div
-              key={`streak-${i}`}
-              initial={{ left: "50%", top: "50%", x: "-50%", y: "-50%", width: 0, opacity: 0 }}
-              animate={{ 
-                x: [`${Math.cos(angle) * 80}vw`, "0%"],
-                y: [`${Math.sin(angle) * 80}vh`, "0%"],
-                width: [800, 0],
-                opacity: [0, 0.8, 0]
-              }}
-              transition={{ duration, repeat: Infinity, delay, ease: [0.2, 0, 1, 1] }}
-              className="absolute h-[1.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent origin-left shadow-[0_0_15px_rgba(59,130,246,0.5)] [width:300px] [rotate:var(--angle)]"
-              style={{ 
-                '--angle': `${angle}rad` 
-              } as any}
-            />
-          );
-        }), [])}
+        {useMemo(() => {
+          const slowdown = 3.3333333; // ~70% slower -> durations ~3.33x
+          return [...Array(14)].map((_, i) => {
+            // Slow durations so lines feel like flying through space
+            const baseDuration = 6 + Math.random() * 4; // 6-10s base
+            const duration = baseDuration * 1.2; // slight variation
+            const delay = Math.random() * -duration;
+            const angle = Math.random() * Math.PI * 2;
+
+            // shorter streaks: 30-70 vw
+            const length = 30 + Math.random() * 40; // 30-70 vw
+
+            return (
+              <motion.div
+                key={`streak-${i}`}
+                initial={{ width: '0vw', opacity: 0 }}
+                animate={{ 
+                  width: `${length}vw`,
+                  opacity: [0, 0.85, 0]
+                }}
+                transition={{ duration: duration * slowdown, repeat: Infinity, delay, ease: 'easeOut' }}
+                className="absolute h-[1.2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent shadow-[0_0_12px_rgba(59,130,246,0.5)]"
+                style={{ 
+                  left: '50%',
+                  top: '50%',
+                  transform: `translateY(-50%) rotate(${angle}rad)`,
+                  transformOrigin: 'left center'
+                } as React.CSSProperties}
+              />
+            );
+          });
+        }, [])}
       </div>
 
       {/* ROTATING RINGS & SECTORS - VÍCE VRSTEV PODLE MOCKUPU */}
@@ -66,47 +78,86 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
         {/* Pozadí s jemnou mřížkou/tečkami */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.05)_0%,transparent_70%)]" />
         
-        {[350, 384, 416, 464, 520].map((size, i) => (
-          <motion.div 
-            key={size}
-            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-            transition={{ duration: 25 + i * 10, repeat: Infinity, ease: "linear" }}
-            className="absolute border border-white/[0.05] rounded-full shadow-[0_0_20px_rgba(34,211,238,0.02)] z-10"
-            style={{ 
-              width: size, 
-              height: size,
-              borderStyle: i % 2 === 1 ? 'dashed' : 'solid'
-            }}
-          >
-            {/* Přidání 'zářezů' na největší prstenec */}
-            {i === 4 && [...Array(8)].map((_, j) => (
-              <div 
-                key={j}
-                className="absolute w-2 h-[1px] bg-white/20 [top:50%] [left:-4px] [transform-origin:var(--to)] [transform:rotate(var(--rot))]"
-                style={{ '--to': `${size/2 + 4}px 50%`, '--rot': `${j * 45}deg` } as any}
-              />
-            ))}
-          </motion.div>
-        ))}
+        {(() => {
+          const sizes = [350, 384, 416, 464, 520];
+          const maxIndex = sizes.length - 1;
+          return sizes.map((size, i) => {
+            const rotateDir = i % 2 === 0 ? 360 : -360;
+            const rotateDuration = (25 + i * 10) * 3.3333333;
+            const assembleDelay = (maxIndex - i) * 0.25; // outer -> inner
+            const exitDelay = i * 0.22; // inner -> outer on exit
+
+            const scaleAnim = isExiting ? 0.2 : 1;
+            const opacityAnim = isExiting ? 0 : 1;
+            const delayForAnim = isExiting ? exitDelay : assembleDelay;
+
+            return (
+              <motion.div 
+                key={size}
+                initial={{ scale: 0.2, opacity: 0 }}
+                animate={{ scale: scaleAnim, opacity: opacityAnim, rotate: rotateDir }}
+                transition={{
+                  scale: { delay: delayForAnim, duration: 0.9, ease: 'easeOut' },
+                  opacity: { delay: delayForAnim, duration: 0.9, ease: 'easeOut' },
+                  rotate: { duration: rotateDuration, repeat: Infinity, ease: 'linear' }
+                }}
+                className="absolute border border-white/[0.05] rounded-full shadow-[0_0_20px_rgba(34,211,238,0.02)] z-10"
+                style={{ 
+                  width: size, 
+                  height: size,
+                  borderStyle: i % 2 === 1 ? 'dashed' : 'solid'
+                }}
+              >
+                {i === maxIndex && [...Array(8)].map((_, j) => (
+                  <div 
+                    key={j}
+                    className="absolute w-2 h-[1px] bg-white/20 [top:50%] [left:-4px] [transform-origin:var(--to)] [transform:rotate(var(--rot))]"
+                    style={{ '--to': `${size/2 + 4}px 50%`, '--rot': `${j * 45}deg` } as any}
+                  />
+                ))}
+              </motion.div>
+            );
+          });
+        })()}
 
         {/* Rotující výseče (Arcs) - sytější barvy a více vrstev */}
-        {[370, 400, 432, 480, 512, 550].map((size, i) => (
-          <motion.div
-            key={`arc-${size}`}
-            animate={{ rotate: i % 2 === 0 ? -360 : 360 }}
-            transition={{ duration: 12 + i * 5, repeat: Infinity, ease: "linear" }}
-            className="absolute rounded-full border-2 border-transparent z-20"
-            style={{ 
-              width: size, 
-              height: size,
-              borderTopColor: i % 3 === 0 ? 'rgba(34, 211, 238, 0.6)' : 'transparent',
-              borderRightColor: i % 3 === 1 ? 'rgba(192, 132, 252, 0.5)' : 'transparent',
-              borderLeftColor: i % 3 === 2 ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-              borderStyle: i % 2 === 1 ? 'dashed' : 'solid',
-              filter: `drop-shadow(0 0 12px ${i % 3 === 0 ? 'rgba(34, 211, 238, 0.3)' : 'rgba(192, 132, 252, 0.3)'})`
-            }}
-          />
-        ))}
+        {(() => {
+          const arcs = [370, 400, 432, 480, 512, 550];
+          const maxIndexA = arcs.length - 1;
+          return arcs.map((size, i) => {
+            const rotateDir = i % 2 === 0 ? -360 : 360;
+            const rotateDuration = (12 + i * 5) * 3.3333333;
+            const assembleDelay = (maxIndexA - i) * 0.22;
+            const exitDelay = i * 0.18;
+
+            const scaleAnim = isExiting ? 0.2 : 1;
+            const opacityAnim = isExiting ? 0 : 1;
+            const delayForAnim = isExiting ? exitDelay : assembleDelay;
+
+            return (
+              <motion.div
+                key={`arc-${size}`}
+                initial={{ scale: 0.2, opacity: 0 }}
+                animate={{ scale: scaleAnim, opacity: opacityAnim, rotate: rotateDir }}
+                transition={{
+                  scale: { delay: delayForAnim, duration: 0.9, ease: 'easeOut' },
+                  opacity: { delay: delayForAnim, duration: 0.9, ease: 'easeOut' },
+                  rotate: { duration: rotateDuration, repeat: Infinity, ease: 'linear' }
+                }}
+                className="absolute rounded-full border-2 border-transparent z-20"
+                style={{ 
+                  width: size, 
+                  height: size,
+                  borderTopColor: i % 3 === 0 ? 'rgba(34, 211, 238, 0.6)' : 'transparent',
+                  borderRightColor: i % 3 === 1 ? 'rgba(192, 132, 252, 0.5)' : 'transparent',
+                  borderLeftColor: i % 3 === 2 ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                  borderStyle: i % 2 === 1 ? 'dashed' : 'solid',
+                  filter: `drop-shadow(0 0 12px ${i % 3 === 0 ? 'rgba(34, 211, 238, 0.3)' : 'rgba(192, 132, 252, 0.3)'})`
+                }}
+              />
+            );
+          });
+        })()}
       </div>
 
       <div className="relative z-30 flex items-center justify-center min-h-screen w-full">
