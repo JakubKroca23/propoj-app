@@ -10,5 +10,5 @@ services:
         - VITE_SIDECAR_URL=http://localhost:3001
     container_name: propoj-web
     ports:
-      - "80:80"
+      - "8080:80"
     restart: unless-stopped
