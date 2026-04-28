@@ -1,34 +1,14 @@
 version: '3.8'
 
 services:
-  propoj-app:
+  web:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: propoj.app
-    restart: always
+      args:
+        - VITE_APPWRITE_ENDPOINT=https://appwrite.propoj.app/v1
+        - VITE_APPWRITE_PROJECT_ID=69effdf6003ce697ee83
+        - VITE_SIDECAR_URL=http://localhost:3001
+    container_name: propoj-web
     ports:
-      - "8080:80"
-    networks:
-      - appwrite
-
-  sidecar:
-    build:
-      context: ./sidecar
-      dockerfile: Dockerfile
-    container_name: propoj.sidecar
-    restart: always
-    ports:
-      - "3001:3001"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - APPWRITE_ENDPOINT=${VITE_APPWRITE_ENDPOINT}
-      - APPWRITE_PROJECT_ID=${VITE_APPWRITE_PROJECT_ID}
-      - ADMIN_USER_ID=${ADMIN_USER_ID}
-    networks:
-      - appwrite
-
-networks:
-  appwrite:
-    external: true
+      - "80:80"
+    restart: unless-stopped
