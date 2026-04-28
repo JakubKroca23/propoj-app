@@ -1,0 +1,10 @@
+node_modules
+dist
+.gsd
+.git
+.env
+.gitignore
+README.md
+*.log
+.agent
+.agents
