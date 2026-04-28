@@ -4,40 +4,42 @@ plan: 2
 wave: 1
 ---
 
-# Plan 2.2: HUD Contact Form
+# Plan 2.2: JARVIS Contact Panel
 
 ## Objective
-Implement a functional contact form with HUD aesthetics that saves messages to Appwrite.
+Implement a sliding HUD panel for the contact form, integrated with Appwrite.
 
 ## Context
 - .gsd/SPEC.md
+- .gsd/DECISIONS.md
 - src/lib/appwrite.ts
 
 ## Tasks
 
 <task type="auto">
-  <name>Implement Contact Section</name>
-  <files>src/components/sections/Contact.tsx, src/App.tsx</files>
+  <name>Create ContactPanel Component</name>
+  <files>src/components/ui/ContactPanel.tsx</files>
   <action>
-    - Vytvořit sekci `Contact.tsx` s formulářem (Jméno, Email, Zpráva).
-    - Použít HUD styly pro inputy (neonové okraje, mono fonty).
-    - Integrovat do `App.tsx` na konec stránky.
+    - Vytvořit `ContactPanel.tsx`: Vysouvací panel obsahující formulář.
+    - HUD styl pro inputy: Mono font, neonové focus ringy, skleněný efekt pozadí.
+    - Pole: Jméno, Email, Zpráva.
   </action>
-  <verify>Ruční testování polí formuláře.</verify>
-  <done>Formulář je vizuálně integrovaný do JARVIS UI.</done>
+  <verify>Ruční kontrola vzhledu formuláře na různých zařízeních.</verify>
+  <done>Kontaktní modul ladí se zbytkem JARVIS UI.</done>
 </task>
 
 <task type="auto">
-  <name>Appwrite Form Integration</name>
-  <files>src/components/sections/Contact.tsx</files>
+  <name>Integrate Message Storage</name>
+  <files>src/components/ui/ContactPanel.tsx</files>
   <action>
-    - Implementovat odesílání dat do Appwrite Database (kolekce 'messages').
-    - Přidat stavy pro odesílání (loading) a úspěch/chybu (success/error toast).
+    - Implementovat odesílání do kolekce `messages`.
+    - Automaticky přidat `timestamp` (new Date().toISOString()).
+    - Přidat vizuální potvrzení o odeslání přímo v HUD panelu.
   </action>
-  <verify>Odeslání testovací zprávy a kontrola síťového požadavku.</verify>
-  <done>Zprávy se úspěšně ukládají do Appwrite.</done>
+  <verify>Odeslání testovací zprávy a kontrola v Appwrite Database.</verify>
+  <done>Zprávy jsou úspěšně ukládány se všemi povinnými atributy.</done>
 </task>
 
 ## Success Criteria
-- [ ] Formulář je plně funkční a responzivní.
-- [ ] Zprávy jsou uloženy v Appwrite databázi.
+- [ ] Kontaktní formulář je plně funkční v rámci vysouvacího HUD panelu.
+- [ ] Validace emailu a povinných polí je aktivní.

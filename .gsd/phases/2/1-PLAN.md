@@ -4,43 +4,42 @@ plan: 1
 wave: 1
 ---
 
-# Plan 2.1: Project Portfolio & HUD Cards
+# Plan 2.1: JARVIS Portfolio Panel
 
 ## Objective
-Implement a visually matching project portfolio section that loads data dynamically from Appwrite.
+Implement a sliding HUD panel for the project portfolio, integrated with Appwrite.
 
 ## Context
 - .gsd/SPEC.md
-- .gsd/phases/2/RESEARCH.md
+- .gsd/DECISIONS.md
 - src/lib/appwrite.ts
-- src/components/sections/Hero.tsx (for visual reference)
 
 ## Tasks
 
 <task type="auto">
-  <name>Create HudCard Component</name>
-  <files>src/components/ui/HudCard.tsx</files>
+  <name>Create ProjectPanel & HudCard</name>
+  <files>src/components/ui/ProjectPanel.tsx, src/components/ui/HudCard.tsx</files>
   <action>
-    Vytvořit komponentu `HudCard.tsx` s asymetrickým tvarem (clip-path), neonovými okraji a hover efekty, které ladí s `HudButton`. 
-    - Použít `framer-motion` pro efekty při najetí.
-    - Zobrazit náhled obrázku, název, tagy a odkaz.
+    - Vytvořit `ProjectPanel.tsx`: Boční/překryvný panel (Framer Motion), který se vysune z okraje obrazovky.
+    - Vytvořit `HudCard.tsx`: Komponenta pro jeden projekt využívající `thumbnail` ID (Appwrite Storage preview) a neonový HUD styl.
+    - Implementovat animace pro plynulý vstup/výstup panelu.
   </action>
-  <verify>Ruční kontrola vizuálu v prohlížeči.</verify>
-  <done>Komponenta je stylově konzistentní s Hero sekcí.</done>
+  <verify>Ruční testování animací vysouvání panelu.</verify>
+  <done>Panel se plynule vysouvá a obsahuje stylové karty projektů.</done>
 </task>
 
 <task type="auto">
-  <name>Implement Projects Section</name>
-  <files>src/components/sections/Projects.tsx, src/App.tsx</files>
+  <name>Fetch Projects from Appwrite</name>
+  <files>src/components/ui/ProjectPanel.tsx, src/lib/appwrite.ts</files>
   <action>
-    - Vytvořit sekci `Projects.tsx`, která se dotáže na Appwrite Database (kolekce 'projects').
-    - Přidat placeholder data, pokud je databáze prázdná.
-    - Integrovat sekci do `App.tsx` pod Hero sekci.
+    - Implementovat dotaz na kolekci `projects`.
+    - Zpracovat pole: `title`, `description`, `thumbnail` (přes `getFilePreview`), `tags`, `demo_url`, `github_url`.
+    - Řadit podle pole `order` a filtrovat `featured`.
   </action>
-  <verify>npm run dev a kontrola načtení dat (včetně fallbacku).</verify>
-  <done>Projekty se vykreslují v HUD kartách pod hlavní sekcí.</done>
+  <verify>Kontrola načtených dat v konzoli a vykreslení v kartách.</verify>
+  <done>Data jsou dynamicky načítána z Appwrite podle specifikovaného schématu.</done>
 </task>
 
 ## Success Criteria
-- [ ] Karty projektů mají sci-fi design a animace.
-- [ ] Data se načítají asynchronně z Appwrite.
+- [ ] Portfolio funguje jako interaktivní "modul" HUDu bez nutnosti scrollování stránky.
+- [ ] Karty projektů zobrazují náhledy ze Storage.
