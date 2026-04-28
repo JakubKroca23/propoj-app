@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from '@/context/AuthContext'
-import HudOverlay from '@/components/hud/HudOverlay'
 import LandingPage from '@/pages/LandingPage'
 import Dashboard from '@/pages/Dashboard'
 import AdminPage from '@/pages/Admin'

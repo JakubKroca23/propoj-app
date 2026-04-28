@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import PropojLogo from '@/components/ui/PropojLogo';
 import { Lock, Power } from 'lucide-react';
