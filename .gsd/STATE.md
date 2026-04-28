@@ -1,6 +1,6 @@
 # STATE.md
 
-**Current Status**: 🛰 Milestone V3.0 In Progress
+**Current Status**: ✅ Milestone V3.0 Completed
 **Last Updated**: 2026-04-28
 **Context Hygiene**: Clean
 
@@ -8,9 +8,10 @@
 Milník V3.0 se zaměřuje na nasazení aplikace `propoj.app` na vlastní Linux server pomocí Dockeru.
 
 ## Current Position
-- **Phase**: 4 (SSL & Security Polish)
-- **Task**: Configuring SSL for propoj.app
-- **Status**: Executing
+- **Phase 4: SSL & Security Polish**
+
+**Status**: ✅ Completed
+**Objective**: Nastavení HTTPS pomocí Certbotu (Traefik) a finální verifikace funkčnosti.
 
 ## Next Steps
 1. Verifikace funkčnosti na portu 80.

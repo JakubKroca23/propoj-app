@@ -7,11 +7,13 @@ services:
       args:
         - VITE_APPWRITE_ENDPOINT=https://appwrite.propoj.app/v1
         - VITE_APPWRITE_PROJECT_ID=69effdf6003ce697ee83
-        - VITE_SIDECAR_URL=http://localhost:3001
+        - VITE_SIDECAR_URL=/sidecar
     container_name: propoj-web
     ports:
       - "8080:80"
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - appwrite
     labels:
@@ -21,6 +23,16 @@ services:
       - "traefik.http.routers.propoj-web.tls=true"
       - "traefik.http.routers.propoj-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.propoj-web.loadbalancer.server.port=80"
+
+  sidecar:
+    build:
+      context: ./sidecar
+    container_name: propoj-sidecar
+    restart: unless-stopped
+    networks:
+      - appwrite
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Důležité pro monitoring Dockeru
 
 networks:
   appwrite:
