@@ -1,49 +1,31 @@
 # ROADMAP.md
 
-> **Current Phase**: Phase 2: JARVIS UI & Portfolio (⬜ Not Started)
-> **Milestone**: v1.0 - Initial Launch
+> **Current Milestone**: V3.0
+> **Goal**: Nasazení aplikace na vlastní Linux server a konfigurace domény `propoj.app` s Nginx.
 
-## Must-Haves (from SPEC)
+## Must-Haves
+- [ ] Stabilní produkční build (`dist` složka).
+- [ ] Konfigurace Nginx pro obsluhu SPA (fallback na index.html).
+- [ ] Přenos souborů na server (SCP/SFTP).
+- [ ] SSL certifikát přes Let's Encrypt (Certbot).
 
-- [ ] JARVIS-style HUD UI (React + Framer Motion)
-- [ ] Appwrite Auth & Database integration
-- [ ] Docker Sidecar Monitoring API
-- [ ] ARM64 optimized Docker deployment
+## Nice-to-Haves
+- [ ] Implementace automatizovaného deployment scriptu.
 
 ## Phases
 
-### Phase 1: Foundation & Infrastructure
-
-**Status**: ✅ Complete
-
-**Objective**: Nastavení základní struktury projektu, Dockeru a spojení s Appwrite.
-
-**Deliverables**:
-
-- React (Vite) + Tailwind + Shadcn základ.
-- Dockerfile a docker-compose.yml pro ARM64.
-- Appwrite Context & SDK inicializace.
-
-### Phase 2: JARVIS UI & Portfolio
-
-**Status**: [/] In Progress
-
-**Objective**: Vytvoření vizuálně pohlcující veřejné části s dynamickými daty.
-
-**Deliverables**:
-
-- HUD/Futuristic design systém (Framer Motion).
-- Dynamické načítání projektů z Appwrite Database.
-- Kontaktní formulář propojený s Appwrite.
-
-### Phase 3: Sidecar Monitoring & Admin Dashboard
-
+### Phase 1: Build & Production Audit
 **Status**: ⬜ Not Started
+**Objective**: Verifikace buildu, kontrola environmentálních proměnných a příprava produkční konfigurace.
 
-**Objective**: Implementace správy serveru a projektů na `admin.propoj.app`.
+### Phase 2: Server Setup & Nginx Config
+**Status**: ⬜ Not Started
+**Objective**: Příprava serveru, instalace Nginx a vytvoření site konfigurace pro propoj.app.
 
-**Deliverables**:
+### Phase 3: Deployment Execution
+**Status**: ⬜ Not Started
+**Objective**: Přenos buildu na server a spuštění aplikace.
 
-- Sidecar API pro Docker statistiky.
-- Admin Dashboard s autentizací (Appwrite Auth).
-- Vizualizace CPU/RAM a stavu kontejnerů.
+### Phase 4: SSL & Security Polish
+**Status**: ⬜ Not Started
+**Objective**: Nastavení HTTPS pomocí Certbotu a finální verifikace funkčnosti.

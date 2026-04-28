@@ -1,16 +1,33 @@
 version: '3.8'
 
 services:
-  propoj-homepage:
-    image: nginx:alpine
+  propoj-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: propoj.app
     restart: always
     ports:
       - "8080:80"
-    volumes:
-      - ./index.html:/usr/share/nginx/html/index.html:ro
     networks:
-      - Appwrite # Pokud chcete, aby kontejner viděl na Appwrite interně
+      - appwrite
+
+  sidecar:
+    build:
+      context: ./sidecar
+      dockerfile: Dockerfile
+    container_name: propoj.sidecar
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - APPWRITE_ENDPOINT=${VITE_APPWRITE_ENDPOINT}
+      - APPWRITE_PROJECT_ID=${VITE_APPWRITE_PROJECT_ID}
+      - ADMIN_USER_ID=${ADMIN_USER_ID}
+    networks:
+      - appwrite
 
 networks:
   appwrite:

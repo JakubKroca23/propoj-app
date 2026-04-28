@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 50% 1%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* JARVIS style glassmorphism */
+.glass-card {
+  @apply bg-cyber-indigo/30 backdrop-blur-md border border-white/10;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#22d3ee] via-[#3b82f6] to-[#d946ef];
+}
+
+.text-glow {
+  text-shadow: 0 0 8px rgba(217, 70, 239, 0.4), 0 0 15px rgba(139, 92, 246, 0.2);
+  will-change: filter, text-shadow;
+}
+
+.shadow-neon {
+  will-change: filter;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.1), transparent);
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes glitch {
+  0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+  10% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -2px); }
+  20% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+  30% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 2px); }
+  50% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
+}
+
+/* Custom UI Utilities */
+.hud-clip {
+  clip-path: polygon(0% 0%, 90% 0%, 100% 30%, 100% 100%, 10% 100%, 0% 70%);
+}
+
+.drop-shadow-neon {
+  filter: drop-shadow(0 0 5px #22d3ee);
+}
+
+.drop-shadow-purple {
+  filter: drop-shadow(0 0 5px #d946ef);
+}
+
+.drop-shadow-deep {
+  filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));
+}

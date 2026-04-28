@@ -1,18 +1,21 @@
-# DECISIONS.md
+# Decisions
 
-## Phase 2 Decisions
+> Previous milestone decisions archived in `.gsd/milestones/v2.0/DECISIONS.md`
+
+---
+
+## Phase 4: Landing Page Refresh
 
 **Date:** 2026-04-28
 
 ### Scope
-- Integrace dvou kolekcí Appwrite: `projects` (portfolio) a `messages` (kontakty).
-- Implementace detailu projektu jako vysouvacího panelu (side panel/overlay), aby byl zachován vizuální kontext Hero sekce.
+- Pouze kosmetické změny a interaktivní přechod.
+- Zobrazení pouze projektů označených jako `featured`.
 
 ### Approach
-- **Appwrite Data**: Kolekce `projects` obsahuje metadata včetně `thumbnail` (ID souboru), `tags`, `demo_url` a `github_url`.
-- **UI/UX**: Pokračování v HUD estetice. Místo scrollování dolů budou projekty dostupné přes interaktivní prvek (např. tlačítko "Portfolio" v HUDu), který vysune panel s kartami.
-- **Kontakt**: Jednoduché ukládání do Appwrite bez externích notifikací.
+- **Portal Transition (Option B):** Hero sekce funguje jako "vstupní brána". Po kliknutí se transformuje do zobrazení portfolia bez skrolování.
 
-### Constraints
-- Thumbnail je ID souboru, vyžaduje použití `storage.getFilePreview` z Appwrite SDK.
-- Responzivita: Vysouvací panely musí fungovat na mobilu (překrytí celé obrazovky).
+### Constraints & Style
+- **HUD:** Agresivnější vizuál (více HUD prvků, skenování, textových polí), ale technicky zjednodušený (méně náročné na výkon).
+- **Barvy:** Zachování Cyber Purple / Cyan / Neon schématu.
+- **Performance:** Nutnost optimalizace efektů (např. omezení počtu částic/streaků), které způsobují sekání stránky.

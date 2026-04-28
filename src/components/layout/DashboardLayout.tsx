@@ -1,0 +1,46 @@
+import React, { useState } from 'react';
+import Sidebar from './Sidebar';
+import Topbar from './Topbar';
+import ProjectPanel from '@/components/ui/ProjectPanel';
+import ContactPanel from '@/components/ui/ContactPanel';
+
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+}
+
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  return (
+    <div className="flex h-screen bg-cyber-deep text-white overflow-hidden">
+      {/* Sidebar Navigation */}
+      <Sidebar 
+        onOpenPortfolio={() => setIsProjectsOpen(true)} 
+        onOpenContact={() => setIsContactOpen(true)} 
+      />
+
+      <div className="flex-1 flex flex-col relative overflow-hidden">
+        {/* Top Header */}
+        <Topbar />
+
+        {/* Content Area */}
+        <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_50%_-20%,rgba(76,29,149,0.15),transparent_80%)]">
+          <div className="p-8">
+            {children}
+          </div>
+        </main>
+
+        {/* Floating Background Effects */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyber-purple/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-cyber-blue/5 blur-[100px] rounded-full pointer-events-none" />
+      </div>
+
+      {/* Global Modals/Panels */}
+      <ProjectPanel isOpen={isProjectsOpen} onClose={() => setIsProjectsOpen(false)} />
+      <ContactPanel isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+    </div>
+  );
+};
+
+export default DashboardLayout;
