@@ -81,6 +81,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
               accept="image/*" 
               onChange={handleFileChange} 
               className="hidden" 
+              title="Upload Project Thumbnail"
             />
           </div>
 
@@ -118,6 +119,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
             <input
               required
               type="text"
+              title="Project Title"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full bg-black/30 border border-white/10 rounded px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 transition-all"
@@ -129,6 +131,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
             <label className="block text-[10px] text-white/40 uppercase tracking-widest mb-2">Description</label>
             <textarea
               required
+              title="Project Description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={4}
@@ -141,6 +144,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
             <label className="block text-[10px] text-white/40 uppercase tracking-widest mb-2">Tags (Comma separated)</label>
             <input
               type="text"
+              title="Tags"
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
               className="w-full bg-black/30 border border-white/10 rounded px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 transition-all"
@@ -153,6 +157,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
               <label className="block text-[10px] text-white/40 uppercase tracking-widest mb-2">Demo URL</label>
               <input
                 type="url"
+                title="Demo URL"
                 value={formData.demo_url}
                 onChange={(e) => setFormData({ ...formData, demo_url: e.target.value })}
                 className="w-full bg-black/30 border border-white/10 rounded px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 transition-all"
@@ -163,6 +168,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, onCancel, isSubmitt
               <label className="block text-[10px] text-white/40 uppercase tracking-widest mb-2">Github URL</label>
               <input
                 type="url"
+                title="Github URL"
                 value={formData.github_url}
                 onChange={(e) => setFormData({ ...formData, github_url: e.target.value })}
                 className="w-full bg-black/30 border border-white/10 rounded px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 transition-all"

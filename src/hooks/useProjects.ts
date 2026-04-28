@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { databases, storage } from '@/lib/appwrite';
-import { Query, ImageGravity } from 'appwrite';
+import { Query, ImageGravity, ImageFormat } from 'appwrite';
 
 export interface Project {
   $id: string;
@@ -38,7 +38,7 @@ export const useProjects = () => {
            thumbnailUrl = storage.getFilePreview(
             BUCKET_ID,
             doc.thumbnail,
-            800, 0, ImageGravity.Center, 90, 0, '', 0, 1, 0, '', 'webp'
+            800, 0, ImageGravity.Center, 90, 0, '', 0, 1, 0, '', ImageFormat.Webp
           ).toString();
         } catch (e) {
           console.warn('Failed to generate preview URL for', doc.thumbnail);

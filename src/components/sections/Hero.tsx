@@ -52,8 +52,10 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
                 opacity: [0, 0.8, 0]
               }}
               transition={{ duration, repeat: Infinity, delay, ease: [0.2, 0, 1, 1] }}
-              className="absolute h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent origin-left shadow-[0_0_20px_rgba(59,130,246,0.6)]"
-              style={{ rotate: `${angle}rad` }}
+              className="absolute h-[1.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent origin-left shadow-[0_0_15px_rgba(59,130,246,0.5)] [width:300px] [rotate:var(--angle)]"
+              style={{ 
+                '--angle': `${angle}rad` 
+              } as any}
             />
           );
         }), [])}
@@ -80,8 +82,8 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
             {i === 4 && [...Array(8)].map((_, j) => (
               <div 
                 key={j}
-                className="absolute w-2 h-[1px] bg-white/20"
-                style={{ top: '50%', left: '-4px', transformOrigin: `${size/2 + 4}px 50%`, transform: `rotate(${j * 45}deg)` }}
+                className="absolute w-2 h-[1px] bg-white/20 [top:50%] [left:-4px] [transform-origin:var(--to)] [transform:rotate(var(--rot))]"
+                style={{ '--to': `${size/2 + 4}px 50%`, '--rot': `${j * 45}deg` } as any}
               />
             ))}
           </motion.div>
@@ -130,8 +132,8 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
             {[...Array(12)].map((_, i) => (
               <div 
                 key={i}
-                className="absolute w-1 h-1 bg-white/20 rounded-full shadow-[0_0_5px_white/10]"
-                style={{ transform: `rotate(${i * 30}deg) translateY(-52px)` }}
+                className="absolute w-1 h-1 bg-white/20 rounded-full shadow-[0_0_5px_white/10] [transform:rotate(var(--rot))_translateY(var(--ty))]"
+                style={{ '--rot': `${i * 30}deg`, '--ty': '-52px' } as any}
               />
             ))}
             <motion.div 
