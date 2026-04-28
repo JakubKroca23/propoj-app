@@ -8,8 +8,8 @@
 Milník V3.0 se zaměřuje na nasazení aplikace `propoj.app` na vlastní Linux server pomocí Dockeru.
 
 ## Current Position
-- **Phase**: 2 (Server Setup & Run)
-- **Task**: Building and running container on server
+- **Phase**: 4 (SSL & Security Polish)
+- **Task**: Configuring SSL for propoj.app
 - **Status**: Executing
 
 ## Next Steps

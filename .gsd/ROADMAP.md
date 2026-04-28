@@ -18,20 +18,20 @@
 
 ### Phase 1: Build & Production Audit
 
-**Status**: ⬜ Not Started
+**Status**: ✅ Completed
 **Objective**: Verifikace buildu, kontrola environmentálních proměnných a příprava produkční konfigurace.
 
 ### Phase 2: Server Setup & Nginx Config
 
-**Status**: ⬜ Not Started
+**Status**: ✅ Completed
 **Objective**: Příprava serveru, instalace Nginx a vytvoření site konfigurace pro propoj.app.
 
 ### Phase 3: Deployment Execution
 
-**Status**: ⬜ Not Started
+**Status**: ✅ Completed
 **Objective**: Přenos buildu na server a spuštění aplikace.
 
 ### Phase 4: SSL & Security Polish
 
-**Status**: ⬜ Not Started
+**Status**: 🔵 In Progress
 **Objective**: Nastavení HTTPS pomocí Certbotu a finální verifikace funkčnosti.
