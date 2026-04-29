@@ -7,16 +7,23 @@ import ContactPanel from '@/components/ui/ContactPanel';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
+  activeTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, onTabChange }) => {
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-cyber-deep text-white overflow-hidden">
-      {/* Sidebar Navigation (empty per request) */}
-      <Sidebar onOpenPortfolio={() => setIsProjectsOpen(true)} onOpenContact={() => setIsContactOpen(true)} />
+      {/* Sidebar Navigation */}
+      <Sidebar 
+        onOpenPortfolio={() => setIsProjectsOpen(true)} 
+        onOpenContact={() => setIsContactOpen(true)} 
+        activeTab={activeTab}
+        onTabChange={onTabChange}
+      />
 
       <div className="flex-1 flex flex-col relative overflow-hidden pt-10">
         {/* Top Header */}
