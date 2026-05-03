@@ -1,74 +1,13 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import ProjectManager from '@/components/admin/ProjectManager';
-import HudToast from '@/components/admin/HudToast';
-import type { ToastType } from '@/components/admin/HudToast';
-
-import KnowledgeBase from '@/components/knowledge/KnowledgeBase';
-import MonitoringView from '@/components/admin/MonitoringView';
-import Terminal from '@/components/admin/Terminal';
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('workspaces');
-  const [toasts, setToasts] = useState<any[]>([]);
-
-  const addToast = (message: string, type: ToastType = 'info') => {
-    const id = Math.random().toString(36).substr(2, 9);
-    setToasts(prev => [...prev, { id, message, type }]);
-  };
-
-  const removeToast = (id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
-  };
 
   return (
     <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <AnimatePresence mode="wait">
-        {activeTab === 'monitoring' && (
-          <motion.div
-            key="monitoring"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <MonitoringView />
-          </motion.div>
-        )}
-        {activeTab === 'terminal' && (
-          <motion.div
-            key="terminal"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Terminal />
-          </motion.div>
-        )}
-        {activeTab === 'knowledge' && (
-          <motion.div
-            key="knowledge"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <KnowledgeBase />
-          </motion.div>
-        )}
-        {activeTab === 'projects' && (
-          <motion.div
-            key="projects"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ProjectManager onToast={addToast} />
-          </motion.div>
-        )}
         {activeTab === 'workspaces' && (
           <motion.div
             key="workspaces"
@@ -83,36 +22,7 @@ const Dashboard: React.FC = () => {
             </div>
           </motion.div>
         )}
-        {activeTab === 'widgets' && (
-          <motion.div
-            key="widgets"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">Widget Library</h2>
-              <p className="text-sm text-muted-foreground/30 max-w-md">Widget component library and configuration interface will be initialized here.</p>
-            </div>
-          </motion.div>
-        )}
-        {activeTab === 'settings' && (
-          <motion.div
-            key="settings"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">System Settings</h2>
-              <p className="text-sm text-muted-foreground/30 max-w-md">Global configuration for PROPOJ.APP system and modules.</p>
-            </div>
-          </motion.div>
-        )}
       </AnimatePresence>
-      <HudToast toasts={toasts} removeToast={removeToast} />
     </DashboardLayout>
   );
 };

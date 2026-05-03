@@ -32,7 +32,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const login = async (email: string, pass: string) => {
-    await account.createEmailPasswordSession(email, pass);
+    try {
+      await account.createEmailPasswordSession(email, pass);
+    } catch (err: any) {
+      // Handle case where a session already exists
+      if (err?.message?.includes('Creation of a session is prohibited when a session is active')) {
+        try {
+          await account.deleteSession('current');
+        } catch (_) {
+          // ignore errors during forced logout
+        }
+        // Retry once after clearing existing session
+        await account.createEmailPasswordSession(email, pass);
+      } else {
+        throw err;
+      }
+    }
     await checkUser();
   };
 
