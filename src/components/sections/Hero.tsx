@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropojLogo from '@/components/ui/PropojLogo';
-import { Lock, Power } from 'lucide-react';
+import { Power } from 'lucide-react';
 
 interface HeroProps {
   onEnter?: () => void;
@@ -11,6 +11,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onEnter }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -23,6 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
     setIsExiting(true);
     setTimeout(() => {
       onEnter?.();
+      navigate('/login');
     }, 1500);
   };
 
@@ -218,7 +220,7 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
             
             <div className="flex flex-col items-center z-10">
               <Power className="w-7 h-7 text-cyan-400 mb-1 transition-transform duration-500 group-hover:scale-110" />
-              <span className="text-[8px] font-mono text-white/40 tracking-[0.3em] font-bold group-hover:text-white transition-colors uppercase">Initialize</span>
+              <span className="text-[8px] font-mono text-white/40 tracking-[0.3em] font-bold group-hover:text-white transition-colors uppercase">Login</span>
             </div>
 
             {/* Okrasné linky na obvodu */}
@@ -235,19 +237,6 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
           </div>
         </motion.div>
 
-        {/* ADMIN LINK - vpravo nahoře */}
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 0.4 }} 
-          className="absolute top-6 right-6 z-50"
-        >
-          <Link to="/admin" className="group flex items-center gap-3 no-underline hover:opacity-100 transition-all">
-            <span className="text-[8px] font-mono text-white/40 tracking-[0.4em] uppercase group-hover:text-cyan-500">Admin Access</span>
-            <div className="p-2 rounded-full border border-white/10 bg-white/5 group-hover:border-cyan-500/30 transition-colors">
-              <Lock className="w-3 h-3 text-cyan-500" />
-            </div>
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

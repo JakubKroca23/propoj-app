@@ -27,7 +27,7 @@ const LoginPage = () => {
       // Success sequence
       setStep(2);
       setTimeout(() => {
-        navigate('/admin');
+        navigate('/dashboard');
       }, 2500);
     } catch (err: any) {
       setError(err.message || 'ACCESS DENIED');
