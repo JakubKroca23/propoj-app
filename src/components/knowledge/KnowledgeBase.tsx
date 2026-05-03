@@ -6,8 +6,6 @@ import {
   ChevronRight, 
   ChevronDown,
   Search, 
-  Book, 
-  ArrowLeft,
   Sparkles,
   Loader2,
   Trash2,
@@ -15,7 +13,8 @@ import {
   Clipboard,
   Home,
   Menu,
-  ChevronLeft
+  ChevronLeft,
+  Database
 } from 'lucide-react';
 
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;

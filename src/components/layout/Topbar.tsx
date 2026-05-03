@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Bell, Search, User, LogOut, Activity, BookOpen } from 'lucide-react';
+import { Bell, Search, User, LogOut, Activity } from 'lucide-react';
 import GlitchText from '@/components/ui/GlitchText';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 interface TopbarProps {
   onToggleMonitoring?: () => void;
-  onOpenKnowledge?: () => void;
-  activeTab?: string;
 }
 
-const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring, onOpenKnowledge, activeTab }) => {
+const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const avatarRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
