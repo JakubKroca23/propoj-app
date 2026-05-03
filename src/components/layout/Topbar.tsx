@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Bell, Search, User, Settings, LogOut } from 'lucide-react';
+import { Bell, Search, User, Settings, LogOut, Activity } from 'lucide-react';
 import GlitchText from '@/components/ui/GlitchText';
 
-const Topbar: React.FC = () => {
+interface TopbarProps {
+  onToggleMonitoring?: () => void;
+}
+
+const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const avatarRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -38,11 +42,23 @@ const Topbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Center spacer (search moved to the right) */}
+      {/* Center spacer */}
       <div className="flex-1" />
 
       {/* User & Alerts */}
       <div className="flex items-center gap-2">
+        <button
+          onClick={onToggleMonitoring}
+          title="System Monitoring"
+          aria-label="Toggle system monitoring"
+          className="p-1.5 text-slate-400 hover:text-cyan-400 transition-colors bg-white/5 border border-white/5 rounded-md flex items-center gap-2 group"
+        >
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest hidden md:block opacity-0 group-hover:opacity-100 transition-opacity">Monitor</span>
+          <Activity size={16} className="group-hover:animate-pulse" />
+        </button>
+
+        <div className="w-[1px] h-4 bg-white/10 mx-1" />
+
         <button
           title="Notifications"
           aria-label="View notifications"

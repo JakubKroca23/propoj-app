@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import MonitoringView from '@/components/admin/MonitoringView';
 import ProjectManager from '@/components/admin/ProjectManager';
-import Terminal from '@/components/admin/Terminal';
 import HudToast from '@/components/admin/HudToast';
 import type { ToastType } from '@/components/admin/HudToast';
 
@@ -23,17 +21,6 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <AnimatePresence mode="wait">
-        {activeTab === 'monitoring' && (
-          <motion.div
-            key="monitoring"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <MonitoringView />
-          </motion.div>
-        )}
         {activeTab === 'projects' && (
           <motion.div
             key="projects"
@@ -43,17 +30,6 @@ const Dashboard: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <ProjectManager onToast={addToast} />
-          </motion.div>
-        )}
-        {activeTab === 'terminal' && (
-          <motion.div
-            key="terminal"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Terminal />
           </motion.div>
         )}
         {activeTab === 'workspaces' && (
