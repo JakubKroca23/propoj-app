@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 interface TopbarProps {
   onToggleMonitoring?: () => void;
   onOpenKnowledge?: () => void;
+  activeTab?: string;
 }
 
-const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring, onOpenKnowledge }) => {
+const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring, onOpenKnowledge, activeTab }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const avatarRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -61,15 +62,6 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring, onOpenKnowledge }) 
 
       {/* User & Alerts */}
       <div className="flex items-center gap-2">
-        <button
-          onClick={onOpenKnowledge}
-          title="Knowledge Base"
-          aria-label="Open knowledge base"
-          className="p-2 text-slate-400 hover:text-white transition-colors bg-white/5 border border-white/5 rounded-md group"
-        >
-          <BookOpen size={16} />
-        </button>
-
         <button
           onClick={onToggleMonitoring}
           title="System Monitoring"

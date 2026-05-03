@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, LayoutDashboard, Blocks, FolderKanban, Settings, Menu } from 'lucide-react';
+import { ChevronLeft, LayoutDashboard, Blocks, FolderKanban, Settings, Menu, Book } from 'lucide-react';
 
 interface SidebarProps {
   onOpenPortfolio?: () => void;
@@ -16,6 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
     { id: 'workspaces', label: 'Workspaces', icon: LayoutDashboard, metadata: 'SYS-01' },
     { id: 'widgets', label: 'Widget Library', icon: Blocks, metadata: 'UI-02' },
     { id: 'projects', label: 'Projects', icon: FolderKanban, metadata: 'PRJ-03' },
+    { id: 'knowledge', label: 'Knowledge Base', icon: Book, metadata: 'WIKI-04' },
   ];
   
   const systemItems = [

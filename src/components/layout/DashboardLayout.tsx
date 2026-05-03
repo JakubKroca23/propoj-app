@@ -31,11 +31,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, 
         <Topbar 
           onToggleMonitoring={() => setIsMonitoringOpen(!isMonitoringOpen)} 
           onOpenKnowledge={() => onTabChange?.('knowledge')}
+          activeTab={activeTab}
         />
 
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_50%_-20%,rgba(76,29,149,0.15),transparent_80%)]">
-          <div className="p-8">
+          <div className={activeTab === 'knowledge' ? 'h-full' : 'p-8'}>
             {children}
           </div>
         </main>
