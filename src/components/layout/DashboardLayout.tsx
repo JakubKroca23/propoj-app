@@ -30,8 +30,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, 
         {/* Top Header */}
         <Topbar 
           onToggleMonitoring={() => setIsMonitoringOpen(!isMonitoringOpen)} 
-          onOpenKnowledge={() => onTabChange?.('knowledge')}
-          activeTab={activeTab}
         />
 
         {/* Content Area */}
