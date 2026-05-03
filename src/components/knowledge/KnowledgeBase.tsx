@@ -6,11 +6,6 @@ import {
   ChevronRight, 
   Search, 
   Book, 
-  FileText, 
-  Terminal, 
-  Server, 
-  Globe, 
-  Code,
   ArrowLeft,
   Sparkles,
   Loader2,
@@ -72,10 +67,6 @@ const KnowledgeBase: React.FC = () => {
     }
   };
 
-  const categories = useMemo(() => {
-    const cats = new Set(articles.map(a => a.category));
-    return Array.from(cats);
-  }, [articles]);
 
   const filteredArticles = useMemo(() => {
     return articles.filter(a => {

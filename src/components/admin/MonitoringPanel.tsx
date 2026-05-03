@@ -5,8 +5,7 @@ import {
   Activity, 
   ShieldAlert, 
   RefreshCcw,
-  X,
-  Server
+  X
 } from 'lucide-react';
 
 interface MonitoringPanelProps {

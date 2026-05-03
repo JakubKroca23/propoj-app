@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, LayoutDashboard, Blocks, FolderKanban, Settings, Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, LayoutDashboard, Blocks, FolderKanban, Settings, Menu } from 'lucide-react';
 
 interface SidebarProps {
   onOpenPortfolio?: () => void;
