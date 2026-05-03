@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, LayoutDashboard, Blocks, FolderKanban, Activity, Settings, Layers } from 'lucide-react';
+import { ChevronLeft, ChevronRight, LayoutDashboard, Blocks, FolderKanban, Settings } from 'lucide-react';
 
 interface SidebarProps {
   onOpenPortfolio?: () => void;
@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
-  const sidebarTransition = { type: 'spring', stiffness: 300, damping: 30 };
+  const sidebarTransition = { type: 'spring', stiffness: 300, damping: 30 } as const;
 
   return (
     <motion.aside

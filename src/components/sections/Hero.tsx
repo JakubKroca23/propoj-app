@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropojLogo from '@/components/ui/PropojLogo';
 import { Lock, Power } from 'lucide-react';
 
@@ -11,7 +11,6 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onEnter }) => {
   const [isExiting, setIsExiting] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
