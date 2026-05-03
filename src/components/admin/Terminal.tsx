@@ -51,14 +51,14 @@ const Terminal: React.FC = () => {
 
   return (
     <div 
-      className="bg-black/80 border border-purple-500/30 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(139,92,246,0.15)] flex flex-col h-[600px] max-h-[80vh]"
+      className="bg-card/80 border border-primary/30 rounded-xl overflow-hidden shadow-[0_0_50px_hsl(var(--primary)/0.15)] flex flex-col h-[600px] max-h-[80vh]"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Header */}
-      <div className="bg-purple-950/30 border-b border-purple-500/20 px-4 py-2 flex items-center justify-between">
+      <div className="bg-secondary/30 border-b border-border px-4 py-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <TerminalIcon size={14} className="text-cyan-400" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/80">Command Terminal // Secure_Shell</span>
+          <TerminalIcon size={14} className="text-primary" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/80">Command Terminal // Secure_Shell</span>
         </div>
         <div className="flex gap-1.5">
           <div className="w-2 h-2 rounded-full bg-red-500/40" />
@@ -74,12 +74,12 @@ const Terminal: React.FC = () => {
       >
         {logs.map((log, i) => (
           <div key={i} className="flex gap-3">
-            <span className="text-white/20 shrink-0">[{log.timestamp.toLocaleTimeString()}]</span>
+            <span className="text-muted-foreground/20 shrink-0">[{log.timestamp.toLocaleTimeString()}]</span>
             <span className={`break-all whitespace-pre-wrap ${
-              log.type === 'cmd' ? 'text-cyan-400 font-bold' :
-              log.type === 'err' ? 'text-red-400' :
-              log.type === 'sys' ? 'text-purple-400 italic' :
-              'text-white/70'
+              log.type === 'cmd' ? 'text-primary font-bold' :
+              log.type === 'err' ? 'text-destructive' :
+              log.type === 'sys' ? 'text-primary/60 italic' :
+              'text-foreground/70'
             }`}>
               {log.type === 'cmd' && <ChevronRight size={12} className="inline mr-1" />}
               {log.content}
@@ -87,7 +87,7 @@ const Terminal: React.FC = () => {
           </div>
         ))}
         {isLoading && (
-          <div className="flex items-center gap-2 text-cyan-500/50 italic animate-pulse">
+          <div className="flex items-center gap-2 text-primary/50 italic animate-pulse">
             <Loader2 size={12} className="animate-spin" />
             <span>Executing system process...</span>
           </div>
@@ -95,15 +95,15 @@ const Terminal: React.FC = () => {
       </div>
 
       {/* Input Area */}
-      <form onSubmit={handleSubmit} className="p-4 bg-white/5 border-t border-purple-500/20 flex items-center gap-2">
-        <ChevronRight size={16} className="text-cyan-400" />
+      <form onSubmit={handleSubmit} className="p-4 bg-secondary/20 border-t border-border flex items-center gap-2">
+        <ChevronRight size={16} className="text-primary" />
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={isLoading}
-          className="bg-transparent border-none outline-none flex-1 text-cyan-400 placeholder:text-white/10"
+          className="bg-transparent border-none outline-none flex-1 text-primary placeholder:text-muted-foreground/20"
           placeholder="Enter command..."
           autoFocus
         />

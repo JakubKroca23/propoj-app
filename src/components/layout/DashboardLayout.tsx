@@ -17,7 +17,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, 
   const [isMonitoringOpen, setIsMonitoringOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-cyber-deep text-white overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
       {/* Sidebar Navigation */}
       <Sidebar 
         onOpenPortfolio={() => setIsProjectsOpen(true)} 
@@ -33,15 +33,15 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, 
         />
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_50%_-20%,rgba(76,29,149,0.15),transparent_80%)]">
+        <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)/0.1),transparent_80%)]">
           <div className={activeTab === 'knowledge' ? 'h-full' : 'p-8'}>
             {children}
           </div>
         </main>
 
         {/* Floating Background Effects */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyber-purple/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-cyber-blue/5 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
       </div>
 
       {/* Global Modals/Panels */}

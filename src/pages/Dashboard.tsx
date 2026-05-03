@@ -6,6 +6,8 @@ import HudToast from '@/components/admin/HudToast';
 import type { ToastType } from '@/components/admin/HudToast';
 
 import KnowledgeBase from '@/components/knowledge/KnowledgeBase';
+import MonitoringView from '@/components/admin/MonitoringView';
+import Terminal from '@/components/admin/Terminal';
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('workspaces');
@@ -23,6 +25,28 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <AnimatePresence mode="wait">
+        {activeTab === 'monitoring' && (
+          <motion.div
+            key="monitoring"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <MonitoringView />
+          </motion.div>
+        )}
+        {activeTab === 'terminal' && (
+          <motion.div
+            key="terminal"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Terminal />
+          </motion.div>
+        )}
         {activeTab === 'knowledge' && (
           <motion.div
             key="knowledge"
@@ -54,8 +78,8 @@ const Dashboard: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-white/50">Welcome to PROPOJ.APP Workspace</h2>
-              <p className="text-sm text-white/30 max-w-md">Select a module from the sidebar to begin interacting with the environment.</p>
+              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">Welcome to PROPOJ.APP Workspace</h2>
+              <p className="text-sm text-muted-foreground/30 max-w-md">Select a module from the sidebar to begin interacting with the environment.</p>
             </div>
           </motion.div>
         )}
@@ -68,8 +92,8 @@ const Dashboard: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-white/50">Widget Library</h2>
-              <p className="text-sm text-white/30 max-w-md">Widget component library and configuration interface will be initialized here.</p>
+              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">Widget Library</h2>
+              <p className="text-sm text-muted-foreground/30 max-w-md">Widget component library and configuration interface will be initialized here.</p>
             </div>
           </motion.div>
         )}
@@ -82,8 +106,8 @@ const Dashboard: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-white/50">System Settings</h2>
-              <p className="text-sm text-white/30 max-w-md">Global configuration for PROPOJ.APP system and modules.</p>
+              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">System Settings</h2>
+              <p className="text-sm text-muted-foreground/30 max-w-md">Global configuration for PROPOJ.APP system and modules.</p>
             </div>
           </motion.div>
         )}

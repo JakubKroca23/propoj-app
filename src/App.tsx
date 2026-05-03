@@ -3,9 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from '@/context/AuthContext'
 import LandingPage from '@/pages/LandingPage'
 import Dashboard from '@/pages/Dashboard'
-import AdminPage from '@/pages/Admin'
 import LoginPage from '@/pages/Login'
-import AdminGuard from '@/components/AdminGuard'
 
 function App() {
   const [isAdminSubdomain, setIsAdminSubdomain] = useState(false)
@@ -29,15 +27,7 @@ function App() {
           {/* Dashboard / Admin Area */}
           <Route path="/dashboard" element={<Dashboard />} />
           
-          {/* New Admin Monitoring Page */}
-          <Route 
-            path="/admin" 
-            element={
-              <AdminGuard>
-                <AdminPage />
-              </AdminGuard>
-            } 
-          />
+
           
           {/* Admin Subdomain handling */}
           <Route path="*" element={isAdminSubdomain ? <Navigate to="/dashboard" /> : <LandingPage />} />

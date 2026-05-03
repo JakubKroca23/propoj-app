@@ -55,11 +55,11 @@ const MonitoringView = () => {
             <TerminalIcon className="text-purple-400" size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold uppercase tracking-[0.4em] text-white">System Monitoring</h1>
-            <div className="flex items-center gap-2 text-[10px] text-white/30 uppercase tracking-widest mt-1">
+            <h1 className="text-2xl font-bold uppercase tracking-[0.4em] text-foreground">System Monitoring</h1>
+            <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase tracking-widest mt-1">
               <span className="flex items-center gap-1"><Clock size={10} /> Last Scan: {lastUpdated.toLocaleTimeString()}</span>
               <span>//</span>
-              <span className="text-purple-500/50">Core_v1.0</span>
+              <span className="text-primary/50">Core_v1.0</span>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ const MonitoringView = () => {
         <button 
           onClick={getStats}
           disabled={loading}
-          className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 bg-secondary border border-border rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all hover:bg-secondary/80 disabled:opacity-50"
           title="Refresh Data"
         >
           <RefreshCcw size={14} className={loading ? 'animate-spin' : ''} />
@@ -97,21 +97,21 @@ const MonitoringView = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
-            className="group relative bg-slate-900/40 border border-white/5 hover:border-purple-500/30 p-6 rounded-2xl transition-all backdrop-blur-md"
+            className="group relative bg-card border border-border hover:border-primary/30 p-6 rounded-2xl transition-all backdrop-blur-md"
           >
             <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/[0.02] transition-all rounded-2xl" />
             
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-slate-800 rounded-lg border border-white/10 group-hover:border-purple-500/30 transition-all">
-                    <Layers className="text-white/40 group-hover:text-purple-400" size={18} />
+                  <div className="p-2 bg-secondary rounded-lg border border-border group-hover:border-primary/30 transition-all">
+                    <Layers className="text-muted-foreground group-hover:text-primary" size={18} />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-purple-400 transition-all uppercase tracking-wider truncate max-w-[150px]">
+                    <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-all uppercase tracking-wider truncate max-w-[150px]">
                       {container.name}
                     </h3>
-                    <p className="text-[10px] text-white/20 font-mono truncate max-w-[150px]">{container.image}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono truncate max-w-[150px]">{container.image}</p>
                   </div>
                 </div>
                 <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full border ${
@@ -127,10 +127,10 @@ const MonitoringView = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex justify-between text-[10px] uppercase tracking-widest font-bold">
-                    <span className="text-white/30 flex items-center gap-1"><Cpu size={10} /> CPU Load</span>
-                    <span className="text-cyan-400">{container.cpu_percent}%</span>
+                    <span className="text-muted-foreground flex items-center gap-1"><Cpu size={10} /> CPU Load</span>
+                    <span className="text-primary">{container.cpu_percent}%</span>
                   </div>
-                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                  <div className="h-1.5 bg-secondary rounded-full overflow-hidden border border-border">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${container.cpu_percent}%` }}
@@ -143,10 +143,10 @@ const MonitoringView = () => {
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-[10px] uppercase tracking-widest font-bold">
-                    <span className="text-white/30 flex items-center gap-1"><Database size={10} /> Memory ({formatBytes(container.memory_usage)})</span>
-                    <span className="text-purple-400">{container.memory_percent}%</span>
+                    <span className="text-muted-foreground flex items-center gap-1"><Database size={10} /> Memory ({formatBytes(container.memory_usage)})</span>
+                    <span className="text-primary">{container.memory_percent}%</span>
                   </div>
-                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                  <div className="h-1.5 bg-secondary rounded-full overflow-hidden border border-border">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${container.memory_percent}%` }}
@@ -156,7 +156,7 @@ const MonitoringView = () => {
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-2 text-[10px] text-slate-500">
+              <div className="mt-6 flex items-center gap-2 text-[10px] text-muted-foreground">
                 <Activity size={12} />
                 <span className="truncate">ID: {container.id.slice(0, 12)}</span>
               </div>
@@ -166,8 +166,8 @@ const MonitoringView = () => {
 
         {loading && stats.length === 0 && (
           <div className="col-span-full flex flex-col items-center justify-center py-20 gap-4">
-            <RefreshCcw className="animate-spin text-purple-500" size={32} />
-            <p className="text-xs text-white/30 uppercase tracking-[0.3em]">Establishing secure link...</p>
+            <RefreshCcw className="animate-spin text-primary" size={32} />
+            <p className="text-xs text-muted-foreground uppercase tracking-[0.3em]">Establishing secure link...</p>
           </div>
         )}
       </div>

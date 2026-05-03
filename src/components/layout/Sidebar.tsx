@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, LayoutDashboard, Blocks, FolderKanban, Settings, Menu, Book } from 'lucide-react';
+import { ChevronLeft, LayoutDashboard, Blocks, FolderKanban, Settings, Menu, Book, Terminal, Activity } from 'lucide-react';
 
 interface SidebarProps {
   onOpenPortfolio?: () => void;
@@ -17,6 +17,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
     { id: 'widgets', label: 'Widget Library', icon: Blocks, metadata: 'UI-02' },
     { id: 'projects', label: 'Projects', icon: FolderKanban, metadata: 'PRJ-03' },
     { id: 'knowledge', label: 'Knowledge Base', icon: Book, metadata: 'WIKI-04' },
+    { id: 'monitoring', label: 'Monitoring', icon: Activity, metadata: 'SYS-05' },
+    { id: 'terminal', label: 'Terminal', icon: Terminal, metadata: 'CMD-06' },
   ];
   
   const systemItems = [
@@ -30,9 +32,9 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
       {/* Toggle Button - Persistent */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className={`fixed top-12 z-50 bg-slate-900 border border-white/10 rounded-full p-2 text-white hover:bg-slate-800 transition-all shadow-lg shadow-black/50 ${isCollapsed ? 'left-4' : 'left-[224px]'}`}
+        className={`fixed top-12 z-50 bg-secondary border border-border rounded-full p-2 text-foreground hover:bg-secondary/80 transition-all shadow-lg shadow-black/50 ${isCollapsed ? 'left-4' : 'left-[224px]'}`}
       >
-        {isCollapsed ? <Menu size={16} className="text-cyber-turquoise" /> : <ChevronLeft size={16} />}
+        {isCollapsed ? <Menu size={16} className="text-primary" /> : <ChevronLeft size={16} />}
       </button>
 
       <motion.aside
@@ -43,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
           x: isCollapsed ? -20 : 0
         }}
         transition={sidebarTransition}
-        className="h-screen bg-slate-950/50 backdrop-blur-xl border-r border-white/5 flex flex-col pt-0 overflow-hidden"
+        className="h-screen bg-background/50 backdrop-blur-xl border-r border-border flex flex-col pt-0 overflow-hidden"
       >
         {/* Spacer for Topbar */}
         <div className="h-16" />
@@ -57,8 +59,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
                 onClick={() => onTabChange?.(item.id)}
                 className={`w-full flex items-center p-3 rounded-xl transition-all duration-300 group relative ${
                   activeTab === item.id 
-                    ? 'bg-cyber-purple/20 text-white border border-cyber-purple/30 shadow-[0_0_15px_rgba(76,29,149,0.2)]' 
-                    : 'hover:bg-white/5 text-slate-400 hover:text-white border border-transparent'
+                    ? 'bg-primary/20 text-foreground border border-primary/30 shadow-[0_0_15px_rgba(76,29,149,0.2)]' 
+                    : 'hover:bg-accent text-muted-foreground hover:text-foreground border border-transparent'
                 }`}
               >
                 <div className="flex items-center justify-center min-w-[24px]">
@@ -70,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
 
                 <div className="overflow-hidden whitespace-nowrap flex flex-col items-start ml-3">
                   <span className="text-sm font-semibold tracking-wide">{item.label}</span>
-                  <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.2em]">{item.metadata}</span>
+                  <span className="text-[9px] font-mono text-muted-foreground/40 uppercase tracking-[0.2em]">{item.metadata}</span>
                 </div>
 
                 {activeTab === item.id && (
@@ -83,21 +85,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab = 'workspaces', onTabChange
             ))}
           </div>
 
-          <div className="pt-6 mt-6 border-t border-white/5 space-y-1">
+          <div className="pt-6 mt-6 border-t border-border space-y-1">
             {systemItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => onTabChange?.(item.id)}
                 className={`w-full flex items-center p-3 rounded-xl transition-all duration-300 group relative ${
                   activeTab === item.id 
-                    ? 'bg-cyber-purple/20 text-white border border-cyber-purple/30 shadow-[0_0_15px_rgba(76,29,149,0.2)]' 
-                    : 'hover:bg-white/5 text-slate-400 hover:text-white border border-transparent'
+                    ? 'bg-primary/20 text-foreground border border-primary/30 shadow-[0_0_15px_rgba(76,29,149,0.2)]' 
+                    : 'hover:bg-accent text-muted-foreground hover:text-foreground border border-transparent'
                 }`}
               >
                 <div className="flex items-center justify-center min-w-[24px]">
                   <item.icon 
                     size={20} 
-                    className={`transition-colors duration-300 ${activeTab === item.id ? 'text-cyber-purple' : 'group-hover:text-cyber-purple'}`} 
+                    className={`transition-colors duration-300 ${activeTab === item.id ? 'text-primary' : 'group-hover:text-primary'}`} 
                   />
                 </div>
                 
