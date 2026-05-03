@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Bell, Search, User, Settings, LogOut, Activity } from 'lucide-react';
+import { Bell, Search, User, LogOut, Activity, BookOpen } from 'lucide-react';
 import GlitchText from '@/components/ui/GlitchText';
+import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface TopbarProps {
   onToggleMonitoring?: () => void;
+  onOpenKnowledge?: () => void;
 }
 
-const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
+const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring, onOpenKnowledge }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const avatarRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
@@ -33,6 +38,15 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 h-10 border-b border-white/5 bg-slate-950/40 backdrop-blur-sm flex items-center justify-between px-4 z-50">
       {/* Left: logo */}
@@ -48,12 +62,20 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
       {/* User & Alerts */}
       <div className="flex items-center gap-2">
         <button
+          onClick={onOpenKnowledge}
+          title="Knowledge Base"
+          aria-label="Open knowledge base"
+          className="p-2 text-slate-400 hover:text-white transition-colors bg-white/5 border border-white/5 rounded-md group"
+        >
+          <BookOpen size={16} />
+        </button>
+
+        <button
           onClick={onToggleMonitoring}
           title="System Monitoring"
           aria-label="Toggle system monitoring"
-          className="p-1.5 text-slate-400 hover:text-cyan-400 transition-colors bg-white/5 border border-white/5 rounded-md flex items-center gap-2 group"
+          className="p-2 text-slate-400 hover:text-white transition-colors bg-white/5 border border-white/5 rounded-md group"
         >
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest hidden md:block opacity-0 group-hover:opacity-100 transition-opacity">Monitor</span>
           <Activity size={16} className="group-hover:animate-pulse" />
         </button>
 
@@ -62,14 +84,14 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
         <button
           title="Notifications"
           aria-label="View notifications"
-          className="p-1 text-slate-400 hover:text-white transition-colors"
+          className="p-2 text-slate-400 hover:text-white transition-colors bg-white/5 border border-white/5 rounded-md"
         >
           <Bell size={16} />
         </button>
         <button
           title="Search"
           aria-label="Open search"
-          className="p-1 text-slate-400 hover:text-white transition-colors"
+          className="p-2 text-slate-400 hover:text-white transition-colors bg-white/5 border border-white/5 rounded-md"
         >
           <Search size={16} />
         </button>
@@ -97,12 +119,14 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleMonitoring }) => {
             <span className="inline-flex items-center justify-center w-5 h-5 text-slate-400 mr-3"><User size={14} /></span>
             Profil
           </button>
-          <button className="w-full text-left px-3 py-2 text-sm text-slate-200 hover:bg-white/5 flex items-center" role="menuitem">
-            <span className="inline-flex items-center justify-center w-5 h-5 text-slate-400 mr-3"><Settings size={14} /></span>
-            Nastavení
-          </button>
+          
           <div className="border-t border-white/5 my-1" />
-          <button className="w-full text-left px-3 py-2 text-sm text-rose-400 hover:bg-white/5 flex items-center" role="menuitem">
+          
+          <button 
+            onClick={handleLogout}
+            className="w-full text-left px-3 py-2 text-sm text-rose-400 hover:bg-white/5 flex items-center" 
+            role="menuitem"
+          >
             <span className="inline-flex items-center justify-center w-5 h-5 text-rose-400 mr-3"><LogOut size={14} /></span>
             Odhlásit se
           </button>

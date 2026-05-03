@@ -5,6 +5,8 @@ import ProjectManager from '@/components/admin/ProjectManager';
 import HudToast from '@/components/admin/HudToast';
 import type { ToastType } from '@/components/admin/HudToast';
 
+import KnowledgeBase from '@/components/knowledge/KnowledgeBase';
+
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('workspaces');
   const [toasts, setToasts] = useState<any[]>([]);
@@ -21,6 +23,17 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
       <AnimatePresence mode="wait">
+        {activeTab === 'knowledge' && (
+          <motion.div
+            key="knowledge"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <KnowledgeBase />
+          </motion.div>
+        )}
         {activeTab === 'projects' && (
           <motion.div
             key="projects"

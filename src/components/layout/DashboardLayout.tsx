@@ -28,7 +28,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, activeTab, 
 
       <div className="flex-1 flex flex-col relative overflow-hidden pt-10">
         {/* Top Header */}
-        <Topbar onToggleMonitoring={() => setIsMonitoringOpen(!isMonitoringOpen)} />
+        <Topbar 
+          onToggleMonitoring={() => setIsMonitoringOpen(!isMonitoringOpen)} 
+          onOpenKnowledge={() => onTabChange?.('knowledge')}
+        />
 
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_50%_-20%,rgba(76,29,149,0.15),transparent_80%)]">
