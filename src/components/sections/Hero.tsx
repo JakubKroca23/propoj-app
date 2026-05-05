@@ -24,6 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
     setIsExiting(true);
     setTimeout(() => {
       onEnter?.();
+      navigate('/builder');
     }, 1500);
   };
 
