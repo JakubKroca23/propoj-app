@@ -24,7 +24,6 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
     setIsExiting(true);
     setTimeout(() => {
       onEnter?.();
-      navigate('/login');
     }, 1500);
   };
 
@@ -220,7 +219,7 @@ const Hero: React.FC<HeroProps> = ({ onEnter }) => {
             
             <div className="flex flex-col items-center z-10">
               <Power className="w-7 h-7 text-cyan-400 mb-1 transition-transform duration-500 group-hover:scale-110" />
-              <span className="text-[8px] font-mono text-white/40 tracking-[0.3em] font-bold group-hover:text-white transition-colors uppercase">Login</span>
+              <span className="text-[8px] font-mono text-white/40 tracking-[0.3em] font-bold group-hover:text-white transition-colors uppercase">Initialize</span>
             </div>
 
             {/* Okrasné linky na obvodu */}
