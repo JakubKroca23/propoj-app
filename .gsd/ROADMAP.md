@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Nezačato
+> **Aktuální fáze**: Fáze 1: Základ — OS Shell & Auth (Dokončeno)
 > **Milestone**: v1.0 — Canvas OS MVP
 
 ---
@@ -20,7 +20,7 @@
 ## Fáze
 
 ### Fáze 1: Základ — OS Shell & Auth
-**Status**: ⬜ Nezačato
+**Status**: ✅ Complete
 **Cíl**: Fungující kostra systému — uživatel se přihlásí a vidí Canvas OS launcher s prázdnými sloty
 **Požadavky**: REQ-01, REQ-02, REQ-03, REQ-06
 
