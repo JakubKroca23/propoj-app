@@ -1,40 +1,51 @@
-# DECISIONS.md — ProPoj
+# DECISIONS.md — Architecture Decision Record
 
-> ADR log — Architektonická rozhodnutí
+> Záznamy klíčových architektonických rozhodnutí
 
 ---
 
-## ADR-001: Frontend framework
-**Datum**: 2026-05-19
-**Rozhodnutí**: React 18 + TypeScript + Vite
-**Důvod**: Robustní ekosystém, typová bezpečnost, rychlý HMR, nejlepší podpora pro Konva.js a Three.js
+## ADR-001: Frontend framework — React + TypeScript (Vite)
 
-## ADR-002: Backend
 **Datum**: 2026-05-19
-**Rozhodnutí**: Appwrite (self-hosted)
-**Důvod**: MCP server nakonfigurován, pokrývá auth + databáze + storage + functions, GDPR-friendly self-hosting
+**Status**: Přijato
 
-## ADR-003: 2D vizualizace
-**Datum**: 2026-05-19
-**Rozhodnutí**: Konva.js + React-Konva
-**Důvod**: Výkonný canvas, drag & drop, transformace, přijatelná křivka učení, dobrá dokumentace
+**Kontext**: Potřebujeme moderní, flexibilní frontend framework pro komplexní OS-like UI.
 
-## ADR-004: 3D vizualizace
-**Datum**: 2026-05-19
-**Rozhodnutí**: Three.js + React Three Fiber — odloženo na v2.0
-**Důvod**: MVP priorita je 2D konfigurátor, 3D přidáme až bude stabilní základ
+**Rozhodnutí**: React + TypeScript s Vite buildtoolem.
 
-## ADR-005: UI komponenty
-**Datum**: 2026-05-19
-**Rozhodnutí**: shadcn/ui + Radix UI + Tailwind CSS
-**Důvod**: Plně customizovatelné, přístupné, žádný lock-in, professionální vzhled
+**Důvody**:
+- Nejrozšířenější ekosystém, snadné hledání řešení
+- TypeScript zaručí typovou bezpečnost při složité architektuře WindowManageru
+- Vite = rychlý dev server, code splitting out-of-box
 
-## ADR-006: State management
-**Datum**: 2026-05-19
-**Rozhodnutí**: Zustand (lokální) + TanStack Query (server state)
-**Důvod**: Lightweight, bez boilerplate, dobře škáluje pro komplexní aplikaci
+---
 
-## ADR-007: Jazyk aplikace
+## ADR-002: Plugin systém — iframe sandbox + manifest.json
+
 **Datum**: 2026-05-19
-**Rozhodnutí**: Čeština jako primární jazyk UI
-**Důvod**: Interní aplikace pro český tým, odborné termíny jsou v češtině
+**Status**: Přijato
+
+**Kontext**: Pluginy musí být izolovány (bezpečnost), ale komunikovat s OS.
+
+**Rozhodnutí**: Každý plugin běží v sandboxed `<iframe>`, komunikuje přes `window.postMessage`.
+
+**Důvody**:
+- Plná izolace (JS crash pluginu neshodí OS)
+- Pluginy mohou být napsány v libovolném frameworku
+- Manifest.json definuje oprávnění → security model
+
+---
+
+## ADR-003: Backend — Appwrite
+
+**Datum**: 2026-05-19
+**Status**: Přijato
+
+**Kontext**: Potřebujeme auth, databázi, file storage a server functions.
+
+**Rozhodnutí**: Appwrite jako jediný backend v v1.0.
+
+**Důvody**:
+- Self-hostovatelný (odpovídá filozofii projektu)
+- Pokrývá Auth + DB + Storage + Functions v jednom
+- MCP server pro Appwrite je nakonfigurován v projektu

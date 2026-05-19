@@ -1,124 +1,105 @@
-# ROADMAP.md — ProPoj
+# ROADMAP.md
 
-> **Aktuální fáze**: Nezahájeno
-> **Milestone**: v1.0 — MVP Konfigurátor
-> **Aktualizováno**: 2026-05-19
+> **Aktuální fáze**: Nezačato
+> **Milestone**: v1.0 — Canvas OS MVP
 
 ---
 
-## Must-Haves (v1.0)
+## Must-Haves (z SPEC)
 
-- [ ] Autentizace a role uživatelů
-- [ ] Databáze podvozků, nástaveb a příslušenství (CRUD)
-- [ ] Vizuální 2D konfigurátor (bokorys)
-- [ ] Výpočet zatížení náprav a těžiště
-- [ ] Základní stabilita jeřábu
-- [ ] Právní checklist (klíčové vyhlášky)
-- [ ] Generování PDF protokolu
+- [ ] OS shell: launcher, plovoucí okna, command bar, workspaces
+- [ ] Appwrite Auth (přihlášení/odhlášení)
+- [ ] Plugin systém (iframe + manifest)
+- [ ] 5 core aplikací funkčních end-to-end
+- [ ] Email a počasí integrace
+- [ ] Dark/light mode
+- [ ] Dockerizace
 
 ---
 
 ## Fáze
 
-### Fáze 1: Základy projektu & Auth
-**Status**: ⬜ Nezahájeno
-**Cíl**: Funkční projekt s autentizací, rolemi a základní navigací
+### Fáze 1: Základ — OS Shell & Auth
+**Status**: ⬜ Nezačato
+**Cíl**: Fungující kostra systému — uživatel se přihlásí a vidí Canvas OS launcher s prázdnými sloty
+**Požadavky**: REQ-01, REQ-02, REQ-03, REQ-06
 
-**Úkoly**:
+**Úkoly:**
 - Inicializace Vite + React + TypeScript projektu
-- Nastavení Appwrite (auth, databáze, storage)
-- Implementace přihlášení / odhlášení
-- Role-based access control (Admin, Konstruktér, Obchodník, Technik)
-- Základní layout aplikace (sidebar, navigace, header)
-- Design systém (shadcn/ui + Tailwind, barvy, typografie)
+- Napojení Appwrite (Auth, konfigurace)
+- Login/Logout stránka
+- OS Shell layout: Bento Grid Launcher, Taskbar, Workspaces (skeleton)
+- Plovoucí okno systém (WindowManager): otevření, zavření, přesun, resize, minimize
+- Dark/Light mode systém (CSS variables)
+- Global state management (Context / Zustand)
 
 ---
 
-### Fáze 2: Databáze Komponent
-**Status**: ⬜ Nezahájeno
-**Cíl**: Plně funkční katalog vozidel, nástaveb a příslušenství
+### Fáze 2: Plugin Systém & App Registry
+**Status**: ⬜ Nezačato
+**Cíl**: Fungující plugin engine — lze zaregistrovat, nainstalovat a spustit plugin v sandboxed iframe
+**Požadavky**: REQ-07, REQ-08, REQ-09
 
-**Úkoly**:
-- Datový model: podvozky, nástavby, příslušenství (Appwrite collections)
-- Admin rozhraní pro CRUD komponent
-- Atributy: rozměry, hmotnosti, nosnosti, kompatibilita, obrázky
-- Vyhledávání, filtrování, kategorizace
-- Import z CSV (seed dat)
-- Zobrazení katalogu pro uživatele
-
----
-
-### Fáze 3: Vizuální 2D Konfigurátor
-**Status**: ⬜ Nezahájeno
-**Cíl**: Interaktivní plátno pro sestavení vozidla s nástavbou
-
-**Úkoly**:
-- Konva.js canvas plátno (bokorys + nárys)
-- Načtení podvozku jako základní silueta
-- Drag & drop komponent na plátno
-- Snap-to-grid a zarovnání
-- Automatické rozměrové kóty
-- Undo/redo (historie akcí)
-- Uložení a načtení konfigurace
-- Export canvas jako PNG/SVG
+**Úkoly:**
+- Definice manifest.json schématu
+- Plugin registry (Appwrite Database)
+- Plugin loader (dynamický import + iframe wrapper)
+- postMessage komunikační bridge (OS ↔ plugin API)
+- Plugin permissions systém (storage, files, calendar, network)
+- Správa pluginů v Nastavení (install, uninstall, enable/disable)
+- App Launcher: ikony z registru, drag & drop pořadí
 
 ---
 
-### Fáze 4: Výpočetní Engine
-**Status**: ⬜ Nezahájeno
-**Cíl**: Technické výpočty zatížení a stability v reálném čase
+### Fáze 3: Core Aplikace — Produktivita
+**Status**: ⬜ Nezačato
+**Cíl**: 4 plně funkční core aplikace: Správce souborů, Poznámky, Úkoly, Kalendář
+**Požadavky**: REQ-10, REQ-11, REQ-12, REQ-13, REQ-15
 
-**Úkoly**:
-- Výpočet zatížení přední a zadní nápravy (statické)
-- Výpočet těžiště celého vozidla
-- Stabilita jeřábu: klopný moment, maximální dosah, zatížení stabilizátorů
-- Vizualizace výsledků na plátně (centrum těžiště, silové šipky)
-- Grafy a přehledové tabulky výpočtů
-- Upozornění při překročení limitů
-
----
-
-### Fáze 5: Právní Checklist & Dokumentace
-**Status**: ⬜ Nezahájeno
-**Cíl**: Automatické právní upozornění a generování PDF protokolu
-
-**Úkoly**:
-- Databáze pravidel (zákon 56/2001, vyhl. 341/2002, 209/2018, ADR)
-- Engine pro vyhodnocení pravidel podle konfigurace
-- Tři úrovně upozornění: INFO / VAROVÁNÍ / BLOKUJÍCÍ
-- UI panel s checklistem
-- PDF generování: schéma, výpočty, checklist, BOM
-- Správa verzí norem (datum platnosti)
+**Úkoly:**
+- **Správce souborů**: Appwrite Storage integrace, folder tree, upload/download, preview (obrázky, PDF, video)
+- **Poznámky**: Rich-text editor (Tiptap), Appwrite Database, tagy, full-text search
+- **Úkoly**: Kanban board + list view, Appwrite Database, priorita, termíny, štítky
+- **Kalendář**: měsíční/týdenní/denní view, události v Appwrite, drag & drop přesun
+- **PDF Viewer**: inline viewer (pdf.js) jako built-in handler
+- Universal Command Bar (`Ctrl+K`): vyhledávání přes všechny aplikace
 
 ---
 
-### Fáze 6: Polish & Deployment
-**Status**: ⬜ Nezahájeno
-**Cíl**: Produkční nasazení, doladění UX, optimalizace
+### Fáze 4: Finance & Externí Integrace
+**Status**: ⬜ Nezačato
+**Cíl**: Finance aplikace + napojení na email a počasí
+**Požadavky**: REQ-14, REQ-17, REQ-18
 
-**Úkoly**:
-- Responzivní layout (desktop-first)
-- Loading states, error handling, prázdné stavy
-- Audit výkonnosti (Lighthouse)
-- Nastavení Appwrite pro produkci (self-hosted)
-- Dokumentace pro administrátora
-- Uživatelský onboarding / nápověda
-- Finální testování s týmem
+**Úkoly:**
+- **Finance**: záznamy příjmů/výdajů, kategorie, měsíční grafy (Chart.js / Recharts)
+- **Počasí widget**: OpenWeatherMap API, geolokace, widget na launcher ploše
+- **Email**: IMAP konfigurace v nastavení, inbox view, čtení emailů, compose (Appwrite Functions jako proxy)
+- Live widgety na ploše: počasí, nadcházející úkoly, poslední soubory, čas/datum
 
 ---
 
-## Budoucí Milestony
+### Fáze 5: RTS Hra & Polish
+**Status**: ⬜ Nezačato
+**Cíl**: RTS hra jako plnohodnotná OS aplikace + finální polish celého systému
+**Požadavky**: REQ-16, REQ-19, REQ-20
 
-### v2.0 — 3D Vizualizace
-- Three.js + React Three Fiber
-- 3D modely podvozků a nástaveb
-- Realistický render pro zákazníka
+**Úkoly:**
+- **RTS Hra**: Canvas-based mini RTS (jednotky, základna, nepřátelé, fog of war basic)
+- Animace a micro-interactions (otevírání oken, přechody, hover efekty)
+- Optimalizace výkonu (lazy loading aplikací, code splitting)
+- Dockerizace (Dockerfile + docker-compose pro Appwrite + frontend)
+- End-to-end testování kritických cest
+- README a dokumentace pro self-hosting
 
-### v2.1 — Certifikované Výpočty
-- Validace výpočetního enginu certifikovaným inženýrem
-- Možnost použití jako oficiální podklad
+---
 
-### v3.0 — Rozšíření
-- Cenová kalkulace
-- Projektový management (od objednávky po předání)
-- Napojení na ERP
+## Budoucí verze (v2.0+)
+
+- Multi-user podpora, role a oprávnění
+- Plugin Marketplace
+- OAuth přihlášení (Google, GitHub)
+- Mobilní PWA
+- Real-time notifikace
+- GitHub integrace
+- AI asistent (command bar s AI)

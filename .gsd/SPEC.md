@@ -1,117 +1,127 @@
-# SPEC.md — ProPoj: Konfigurátor Nástaveb
+# SPEC.md — Project Specification
 
 > **Status**: `FINALIZED`
-> **Jazyk**: Česky
-> **Datum**: 2026-05-19
+> **Projekt**: propoj.app — Canvas OS
+> **Jazyk**: Čeština (provozní jazyk projektu)
 
 ---
 
 ## Vize
 
-ProPoj je interní webová aplikace pro nástavbářskou firmu, která umožňuje vizuálně stavět a konfigurovat nákladní vozidla s nástavbami od základního podvozku až po hotový produkt. Kombinuje vizuální 2D/3D konfigurátor, databázi vozidel a komponent, technické výpočty (zatížení náprav, stabilita jeřábu), generování dokumentace a automatické právní checklisty podle platné české a evropské legislativy.
+Propoj.app je osobní webový operační systém — "Canvas OS" — běžící na serveru, který soustřeďuje vše na jedno místo. Uživatel otevře prohlížeč a má k dispozici plnohodnotné pracovní prostředí: správce souborů, poznámky, kalendář, úkoly, finance, nástroje, hry i napojení na externí služby. Díky plugin/app systému lze systém libovolně rozšiřovat novými aplikacemi bez zásahu do jádra.
 
 ---
 
 ## Cíle
 
-1. **Vizuální konfigurátor** — uživatel vizuálně sestaví vozidlo s nástavbou na interaktivním plátně (2D bokorys + nárys, výhledově 3D)
-2. **Technické výpočty** — výpočet zatížení náprav, distribuce hmotnosti, stabilita jeřábu (klopný moment, dosah výložníku, zatížení stabilizátorů)
-3. **Databáze komponent** — katalog podvozků (Mercedes, MAN, DAF, Volvo...), nástaveb (plachta, skříň, jeřáb, cisterna, sklápěč...) a příslušenství (světla, blatníky, podpěry...) — stovky položek
-4. **Právní checklist** — automatická upozornění na povinnosti dle konfigurace (zákon 56/2001 Sb., vyhlášky o rozměrech/hmotnostech, světlech, blatnících, ADR, EN normy)
-5. **Generování dokumentace** — PDF protokol s výpočty, technickým schématem a checklistem pro přihlášení vozidla (STK, přestavba)
+1. **Funkční webový OS** — plovoucí okna, workspaces, command bar, bento launcher, dark/light mode
+2. **Plugin systém** — aplikace jako izolované moduly (iframe + manifest), instalovatelné za běhu
+3. **Core aplikace** — správce souborů, poznámky, kalendář, úkoly, finance, PDF viewer, RTS hra
+4. **Appwrite backend** — autentizace (jméno/heslo), databáze, úložiště souborů, funkce
+5. **Externí integrace** — počasí (OpenWeatherMap API), email (IMAP/SMTP)
+6. **Škálování** — architektura připravená na více uživatelů a firemní nasazení
 
 ---
 
-## Non-Goals (Mimo rozsah v1.0)
+## Non-Goals (mimo scope v1.0)
 
-- Certifikované výpočty (orientační v1.0, certifikace jako budoucí milestone)
-- 3D vizualizace (plánovaná jako v2.0)
-- Napojení na veřejné registry vozidel (ruční import)
-- Mobilní aplikace
-- Zákaznický portál (pouze interní použití)
-- E-commerce / objednávky
+- Mobilní aplikace (PWA jako bonus, ne závazek)
+- Marketplace pro pluginy třetích stran
+- Real-time collaboration (více uživatelů ve stejném dokumentu)
+- OAuth přihlášení (Google, GitHub) — v2.0
+- Placené plány / billing systém
 
 ---
 
 ## Uživatelé
 
-Interní tým ~20 uživatelů s rolemi:
-
-| Role | Popis |
-|------|-------|
-| **Admin** | Správa databáze vozidel, komponent, norem; správa uživatelů |
-| **Konstruktér** | Vytváří konfigurace, provádí výpočty, generuje protokoly |
-| **Obchodník** | Sestavuje nabídky, zobrazuje konfigurace, tiskne dokumenty |
-| **Technik** | Sleduje co je potřeba namontovat, checklist |
+**v1.0:** Jeden uživatel (autor), self-hosted instance na vlastním serveru.
+**v2.0+:** Firmy, týmy — více uživatelů s rolemi a oprávněními.
 
 ---
 
-## Technický Stack
+## Tech Stack
 
-| Vrstva | Technologie | Důvod |
-|--------|-------------|-------|
-| **Frontend** | React 18 + TypeScript + Vite | Robustní, typově bezpečný, rychlý HMR |
-| **UI Framework** | shadcn/ui + Radix UI | Přístupné, plně customizovatelné komponenty |
-| **Styling** | Tailwind CSS | Rychlý vývoj, konzistentní design system |
-| **State** | Zustand + TanStack Query | Lokální stav + server state management |
-| **2D Vizualizace** | Konva.js + React-Konva | Výkonný 2D canvas, drag & drop, transformace |
-| **3D Vizualizace** | Three.js + React Three Fiber | Budoucí 3D, stejný ekosystém |
-| **Výpočty** | math.js + vlastní engine | Přesné fyzikální výpočty |
-| **Backend** | Appwrite | Auth, databáze, storage, realtime, serverless functions |
-| **PDF generování** | @react-pdf/renderer | Profesionální PDF dokumenty |
-| **Routing** | React Router v6 | SPA routing |
+| Vrstva | Technologie |
+|--------|-------------|
+| Frontend | React + TypeScript (Vite) |
+| Styling | Vanilla CSS + CSS Variables (dark/light theming) |
+| Backend | Appwrite (Auth, Database, Storage, Functions) |
+| Plugin runtime | iframe sandboxing + manifest.json |
+| Email | IMAP/SMTP přes Appwrite Functions |
+| Počasí | OpenWeatherMap REST API |
+| Nasazení | Server (Docker / VPS) |
 
 ---
 
-## Klíčové Funkce
+## UI Koncept: Canvas OS
 
-### 1. Vizuální Konfigurátor
-- Interaktivní plátno (2D bokorys + nárys)
-- Drag & drop komponent z katalogu na vozidlo
-- Přichycování ke gridům (snap-to-grid)
-- Rozměrové kóty (automatické)
-- Export schématu jako SVG/PNG/PDF
-- Historie akcí (undo/redo)
+### Hlavní prvky
+- **Bento Grid Launcher** — živá plocha s dlaždicemi aplikací a widgety (počasí, nadcházející úkoly, poslední soubory, čas)
+- **Floating Panels** — každá aplikace se otevírá jako plovoucí okno (resize, snap, minimize, stack)
+- **Universal Command Bar** (`Ctrl+K`) — globální vyhledávání souborů, spouštění aplikací, příkazy
+- **Workspaces** — virtuální plochy (Osobní / Práce / Finance / atd.)
+- **Taskbar** — spodní lišta s minimalizovanými okny a rychlým přístupem
+- **Dark / Light mode** — přepínač v systémových nastaveních, respektuje OS preferenci
 
-### 2. Databáze Komponent
-- Podvozky: rozvor, délka rámu, nosnost náprav, hmotnost, motor
-- Nástavby: typ, rozměry, hmotnost, požadavky na podvozek
-- Příslušenství: světla, blatníky, podpěry, hydraulika, elektrika
-- Vyhledávání, filtrování, kompatibilita
+### Vizuální styl
+- Primárně tmavé téma: deep navy `#0D0F1A` → violet `#6C47FF`
+- Světlé téma: off-white `#F5F5F7`, akcent indigo `#4F46E5`
+- Glassmorphism pro okna panelů
+- Micro-animace pro otevírání/zavírání oken
+- Font: Inter (Google Fonts)
 
-### 3. Výpočetní Engine
-- Zatížení přední/zadní nápravy (statické + dynamické)
-- Těžiště nástavby a celku
-- Stabilita jeřábu: klopný moment, max. dosah při zatížení, zatížení stabilizátorů
-- Vizualizace výsledků (grafy, diagramy)
+---
 
-### 4. Právní Checklist
-- Pravidla vázaná na konfiguraci (rozměry → blatníky, hmotnost → pneumatiky atd.)
-- Zdroj: zákon 56/2001 Sb., vyhl. 341/2002 Sb., 209/2018 Sb., ADR, EN normy
-- Tři úrovně: INFO / VAROVÁNÍ / BLOKUJÍCÍ (nelze generovat dok. bez potvrzení)
-- Verze norem s datem platnosti
+## Core Aplikace (v1.0)
 
-### 5. Dokumentace & Výstupy
-- PDF protokol: technický popis, schéma, výpočty, checklist
-- Přehled konfigurace (BOM — seznam komponent)
-- Export pro přestavbové řízení
+| Aplikace | Popis |
+|----------|-------|
+| **Správce souborů** | Browse, upload, download, preview (PDF, obrázky, video), přejmenování, složky |
+| **Poznámky** | Rich-text editor, tagy, vyhledávání, Markdown podpora |
+| **Kalendář** | Měsíční/týdenní/denní view, události, připomínky |
+| **Úkoly** | Kanban board + list view, priorita, termíny, štítky |
+| **Finance** | Záznamy příjmů/výdajů, kategorie, grafy, měsíční přehledy |
+| **Email** | IMAP inbox, čtení/psaní emailů, složky |
+| **Počasí widget** | Aktuální počasí + 5denní předpověď (OpenWeatherMap) |
+| **PDF Viewer** | Otevření a prohlížení PDF souborů přímo v systému |
+| **Nastavení** | Uživatelský profil, téma, workspaces, správa pluginů |
+| **RTS Hra** | Jednoduchá real-time strategy hra v canvasu (jako easter egg / plnohodnotná mini-hra) |
+
+---
+
+## Plugin Systém
+
+Každý plugin je složka obsahující:
+```
+plugin-name/
+  manifest.json   # název, verze, ikona, entrypoint, oprávnění
+  index.html      # hlavní UI (spouštěno v sandboxed iframe)
+  icon.svg
+```
+
+Komunikace plugin ↔ OS přes `postMessage` API.
+Plugin může požádat o oprávnění: `storage`, `files`, `calendar`, `network`.
 
 ---
 
 ## Constraints
 
-- Interní síť firmy, ale přístup přes prohlížeč (web app)
-- Appwrite jako backend (samohosteditelný)
-- Čeština jako primární jazyk UI
-- Musí běžet bez internetu (případně — nutno upřesnit)
-- GDPR — ukládání dat o projektech/vozidlech
+- Appwrite jako jediný backend (bez vlastního custom serveru v v1.0)
+- Plugin musí fungovat v sandboxed iframe (bezpečnost)
+- Offline mode: základní UI se načte, ale data vyžadují server
+- Responzivita: primárně desktop (1280px+), tablet jako bonus
 
 ---
 
-## Success Criteria
+## Kritéria úspěchu v1.0
 
-- [ ] Uživatel může vizuálně sestavit konfiguraci vozidla za < 30 minut
-- [ ] Výpočet zatížení náprav odpovídá ručnímu výpočtu ± 2%
-- [ ] Systém upozorní na 100% povinných zákonných požadavků pro danou konfiguraci
-- [ ] Vygenerované PDF je přijato jako podklad pro přestavbové řízení
-- [ ] Všechny role mohou pracovat bez školení > 1 hodiny
+- [ ] Přihlášení/odhlášení přes Appwrite Auth
+- [ ] OS shell funguje: launcher, plovoucí okna, command bar, workspaces
+- [ ] Minimálně 5 core aplikací plně funkčních
+- [ ] Plugin systém: lze nainstalovat a spustit externí plugin
+- [ ] Email: inbox zobrazí přijaté emaily
+- [ ] Počasí widget funguje na launcher ploše
+- [ ] Dark/light mode přepínání
+- [ ] RTS hra spustitelná jako aplikace
+- [ ] Nasaditelné na vlastní server (Docker)
