@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import ProfileSection from './sections/ProfileSection';
 import AppearanceSection from './sections/AppearanceSection';
 import PluginsSection from './sections/PluginsSection';
+import EmailSection from './sections/EmailSection';
 import './Settings.css';
 
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState<'profile' | 'appearance' | 'workspaces' | 'plugins'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'appearance' | 'workspaces' | 'plugins' | 'email'>('profile');
 
   return (
     <div className="settings-panel">
@@ -42,6 +43,14 @@ export default function Settings() {
           >
             <span className="settings-nav-icon">🔌</span>
             <span className="settings-nav-label">Pluginy</span>
+          </button>
+          <button
+            type="button"
+            className={`settings-nav-item ${activeTab === 'email' ? 'active' : ''}`}
+            onClick={() => setActiveTab('email')}
+          >
+            <span className="settings-nav-icon">📧</span>
+            <span className="settings-nav-label">E-mailový účet</span>
           </button>
         </nav>
       </aside>
@@ -86,8 +95,14 @@ export default function Settings() {
               </div>
             </div>
           )}
+          {activeTab === 'email' && (
+            <div className="settings-section">
+              <EmailSection />
+            </div>
+          )}
         </div>
       </main>
     </div>
   );
 }
+
