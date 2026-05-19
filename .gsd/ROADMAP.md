@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Fáze 2: Plugin Systém & App Registry (Dokončeno)
+> **Aktuální fáze**: Fáze 3: Core Aplikace — Produktivita (Dokončeno)
 > **Milestone**: v1.0 — Canvas OS MVP
 
 ---
@@ -10,7 +10,7 @@
 - [x] OS shell: launcher, plovoucí okna, command bar, workspaces
 - [ ] Appwrite Auth (přihlášení/odhlášení)
 - [x] Plugin systém (iframe + manifest)
-- [ ] 5 core aplikací funkčních end-to-end
+- [x] 5 core aplikací funkčních end-to-end
 - [ ] Email a počasí integrace
 - [x] Dark/light mode
 - [ ] Dockerizace
@@ -52,7 +52,7 @@
 ---
 
 ### Fáze 3: Core Aplikace — Produktivita
-**Status**: ⬜ Nezačato
+**Status**: ✅ Complete
 **Cíl**: 4 plně funkční core aplikace: Správce souborů, Poznámky, Úkoly, Kalendář
 **Požadavky**: REQ-10, REQ-11, REQ-12, REQ-13, REQ-15
 

@@ -4,7 +4,7 @@ import { AppWindow } from '@/types';
 import { useWindowStore } from '@/stores/windowStore';
 import { clampPosition } from '@/utils/windowUtils';
 import WindowHeader from './WindowHeader';
-import Settings from '@/apps/Settings/Settings';
+import { APPS } from '@/data/apps';
 import IframeLoader from './IframeLoader';
 import './Window.css';
 
@@ -16,6 +16,10 @@ export default function Window({ window: win }: WindowProps) {
   const windowStore = useWindowStore();
   const windowRef = useRef<HTMLDivElement>(null);
   
+  // Najdeme příslušnou aplikaci v registru pro dynamic component rendering
+  const appDef = APPS.find((a) => a.id === win.appId);
+  const AppComponent = appDef?.component;
+
   const bindDrag = useDrag(
     ({ offset: [x, y], first, last }) => {
       if (win.isMaximized) return;
@@ -102,9 +106,12 @@ export default function Window({ window: win }: WindowProps) {
         />
       </div>
 
-      <div className="window-content" style={{ padding: win.url ? 0 : '18px' }}>
-        {win.appId === 'settings' ? (
-          <Settings />
+      <div
+        className="window-content"
+        style={{ padding: (win.url || AppComponent) ? 0 : '18px' }}
+      >
+        {AppComponent ? (
+          <AppComponent window={win} />
         ) : win.url ? (
           <IframeLoader url={win.url} windowId={win.id} token={win.token || ''} />
         ) : (
@@ -124,3 +131,4 @@ export default function Window({ window: win }: WindowProps) {
     </div>
   );
 }
+
