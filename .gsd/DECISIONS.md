@@ -76,3 +76,16 @@
 - Self-hostovatelný (odpovídá filozofii projektu)
 - Pokrývá Auth + DB + Storage + Functions v jednom
 - MCP server pro Appwrite je nakonfigurován v projektu
+
+---
+
+## Fáze 2 — Rozhodnutí (2026-05-19)
+
+### Scope & Instalace pluginů
+- **Instalace**: Kombinace registrace z externích URL a lokálního simulovaného úložiště `/public/plugins/` zapsaných v databázi Appwrite.
+- **Perzistence Bento Grid**: Uspořádání kachliček (drag & drop) bude synchronizováno a ukládáno do **Appwrite Database** (kolekce `user_preferences`) pro přihlášeného uživatele.
+
+### Bezpečnost & Izolace (Iframe Sandbox)
+- **Rozhodnutí**: Zvolena **Varianta A** — Přísný Iframe Sandbox (`sandbox="allow-scripts"` bez `allow-same-origin`).
+- **Důvod**: Maximální izolace pluginů od citlivých tokenů, cookies a localStorage systému Canvas OS.
+- **Komunikace**: Výhradně přes `window.postMessage` se striktní validací `event.origin` a typovaným API protokolem (CanvasOS API bridge).
