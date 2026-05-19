@@ -16,4 +16,5 @@ export interface AppWindow {
   isMaximized: boolean;
   url?: string;
   token?: string;
+  params?: any;
 }

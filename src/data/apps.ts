@@ -19,6 +19,7 @@ export const APPS: AppDefinition[] = [
   { id: 'finance', name: 'Finance', icon: '💰', description: 'Příjmy a výdaje', color: '#10B981', size: 'md' },
   { id: 'email', name: 'Email', icon: '📧', description: 'IMAP inbox', color: '#EF4444', size: 'md' },
   { id: 'weather', name: 'Počasí', icon: '🌤', description: 'Předpověď počasí', color: '#0EA5E9', size: 'sm' },
+  { id: 'pdf-viewer', name: 'PDF Prohlížeč', icon: '📕', description: 'Prohlížení PDF dokumentů', color: '#EF4444', size: 'md' },
   { id: 'settings', name: 'Nastavení', icon: '⚙️', description: 'Systémová nastavení', color: '#8B91B0', size: 'sm', component: Settings },
   { id: 'game', name: 'Strategie', icon: '⚔️', description: 'RTS hra', color: '#DC2626', size: 'lg' },
 ];

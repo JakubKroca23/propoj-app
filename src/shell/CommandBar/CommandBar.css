@@ -185,3 +185,90 @@ html[data-theme="light"] .command-bar-footer {
   padding: 1px 5px;
   color: var(--text-secondary);
 }
+
+/* Fáze 3: Nové styly pro vyhledávací filtry a skupiny */
+.command-bar-chips-container {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.1);
+  scrollbar-width: none; /* Skryje posuvník ve Firefoxu */
+}
+
+.command-bar-chips-container::-webkit-scrollbar {
+  display: none; /* Skryje posuvník v Chrome/Safari */
+}
+
+html[data-theme="light"] .command-bar-chips-container {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.command-bar-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast) ease;
+}
+
+html[data-theme="light"] .command-bar-chip {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.command-bar-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+html[data-theme="light"] .command-bar-chip:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.command-bar-chip.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(108, 71, 255, 0.25);
+}
+
+.command-bar-group-header {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 14px 4px 14px;
+  opacity: 0.85;
+}
+
+.command-bar-loading {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.command-bar-loading-spinner {
+  font-size: 1.5rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
