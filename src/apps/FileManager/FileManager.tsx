@@ -1,35 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { storage } from '@/lib/appwrite';
-import { BUCKET_FILES } from '@/lib/dbSetup';
 import { useAuthStore } from '@/stores/authStore';
 import { useWindowStore } from '@/stores/windowStore';
 import { APPS } from '@/data/apps';
-import { ID } from 'appwrite';
+import { useFilesStore, FileItem } from '@/stores/filesStore';
 import './FileManager.css';
-
-interface FileItem {
-  $id: string;
-  name: string;
-  size: number;
-  mimeType: string;
-  url: string;
-  folderPath: string; // virtuální cesta např. "/" nebo "/Prace"
-  createdAt: string;
-}
 
 export default function FileManager() {
   const { user } = useAuthStore();
   const windowStore = useWindowStore();
 
-  const [files, setFiles] = useState<FileItem[]>([]);
+  const {
+    files,
+    folders,
+    isLoading,
+    uploadProgress,
+    errorMessage,
+    loadFiles,
+    uploadFile,
+    deleteFile,
+    createFolder,
+    setErrorMessage
+  } = useFilesStore();
+
   const [currentPath, setCurrentPath] = useState<string>('/');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [isLoading, setIsLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  // Virtuální složky spravované lokálně s perzistencí
-  const [folders, setFolders] = useState<string[]>(['/Práce', '/Dokumenty', '/Obrázky']);
   const [newFolderName, setNewFolderName] = useState('');
   const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
 
@@ -37,83 +31,6 @@ export default function FileManager() {
   const [lightboxItem, setLightboxItem] = useState<FileItem | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Načtení souborů z Appwrite Storage
-  const loadFiles = async () => {
-    setIsLoading(true);
-    setErrorMessage(null);
-    try {
-      const response = await storage.listFiles(BUCKET_FILES);
-      
-      const mappedFiles: FileItem[] = response.files.map((file) => {
-        // Získání URL pro zobrazení/stažení
-        const fileUrl = storage.getFileView(BUCKET_FILES, file.$id);
-        
-        // Získání složky z tagů/metadata (v Appwrite nahrazeno prefixy v názvu nebo fallbackem na "/")
-        let folderPath = '/';
-        if (file.name.includes('___')) {
-          const parts = file.name.split('___');
-          folderPath = parts[0].replace(/_/g, '/');
-        }
-
-        return {
-          $id: file.$id,
-          name: file.name.includes('___') ? file.name.split('___')[1] : file.name,
-          size: file.sizeOriginal,
-          mimeType: file.mimeType,
-          url: fileUrl,
-          folderPath,
-          createdAt: file.$createdAt
-        };
-      });
-
-      setFiles(mappedFiles);
-    } catch (err) {
-      console.warn('[FileManager] Nepodařilo se připojit k Appwrite Storage, spouštím s mock daty.', err);
-      // Mock data pro offline / vývoj
-      const mockFiles: FileItem[] = [
-        {
-          $id: 'mock-file-1',
-          name: 'Faktura_Kveten.pdf',
-          size: 1450000,
-          mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          folderPath: '/Dokumenty',
-          createdAt: new Date(Date.now() - 86400000).toISOString()
-        },
-        {
-          $id: 'mock-file-2',
-          name: 'Katalog_Produktu.pdf',
-          size: 3200000,
-          mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          folderPath: '/Dokumenty',
-          createdAt: new Date(Date.now() - 3600000).toISOString()
-        },
-        {
-          $id: 'mock-file-3',
-          name: 'Pozadí_Plochy.png',
-          size: 1250000,
-          mimeType: 'image/png',
-          url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800',
-          folderPath: '/Obrázky',
-          createdAt: new Date().toISOString()
-        },
-        {
-          $id: 'mock-file-4',
-          name: 'Prezentace_Projektu.pdf',
-          size: 5120000,
-          mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          folderPath: '/',
-          createdAt: new Date().toISOString()
-        }
-      ];
-      setFiles(mockFiles);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
     loadFiles();
@@ -124,72 +41,16 @@ export default function FileManager() {
     const fileList = e.target.files;
     if (!fileList || fileList.length === 0) return;
     const file = fileList[0];
-
-    // Omezení velikosti: 10MB
-    const MAX_SIZE = 10 * 1024 * 1024;
-    if (file.size > MAX_SIZE) {
-      setErrorMessage('Velikost souboru překračuje limit 10MB.');
-      return;
-    }
-
-    setUploadProgress(0);
-    setErrorMessage(null);
-
-    // Kódujeme složku do názvu souboru (Appwrite nepodporuje složky, nahrazujeme složka___soubor)
-    const folderPrefix = currentPath === '/' ? '' : currentPath.replace(/\//g, '_') + '___';
-    const uploadName = `${folderPrefix}${file.name}`;
-
-    try {
-      // Vytvoření souboru
-      await storage.createFile(
-        BUCKET_FILES,
-        ID.unique(),
-        file,
-        ['role:all'],
-        (progress) => {
-          const percent = Math.round(progress.progress);
-          setUploadProgress(percent);
-        }
-      );
-
-      // Úspěch - refresh seznamu
-      setUploadProgress(null);
-      await loadFiles();
-    } catch (err) {
-      console.error('[FileManager] Chyba při nahrávání do Appwrite:', err);
-      // Fallback lokální nahrání (pouze simulace v UI)
-      setUploadProgress(null);
-      
-      const newMockFile: FileItem = {
-        $id: `mock-${Date.now()}`,
-        name: file.name,
-        size: file.size,
-        mimeType: file.type || 'application/octet-stream',
-        url: file.type.startsWith('image/') ? URL.createObjectURL(file) : '',
-        folderPath: currentPath,
-        createdAt: new Date().toISOString()
-      };
-      
-      setFiles((prev) => [newMockFile, ...prev]);
+    await uploadFile(file, currentPath);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
   // Mazání souboru
   const handleDeleteFile = async (fileId: string) => {
     if (!confirm('Opravdu chcete tento soubor smazat?')) return;
-
-    if (fileId.startsWith('mock-')) {
-      setFiles((prev) => prev.filter((f) => f.$id !== fileId));
-      return;
-    }
-
-    try {
-      await storage.deleteFile(BUCKET_FILES, fileId);
-      await loadFiles();
-    } catch (err) {
-      console.error('[FileManager] Chyba při mazání souboru:', err);
-      setErrorMessage('Nepodařilo se smazat soubor z úložiště.');
-    }
+    await deleteFile(fileId);
   };
 
   // Vytvoření nové virtuální složky
@@ -197,13 +58,7 @@ export default function FileManager() {
     e.preventDefault();
     if (!newFolderName.trim()) return;
 
-    // Cesta k nové složce
-    const parentPath = currentPath === '/' ? '' : currentPath;
-    const newPath = `${parentPath}/${newFolderName.trim()}`;
-
-    if (!folders.includes(newPath)) {
-      setFolders((prev) => [...prev, newPath]);
-    }
+    createFolder(newFolderName, currentPath);
 
     setNewFolderName('');
     setIsFolderModalOpen(false);
