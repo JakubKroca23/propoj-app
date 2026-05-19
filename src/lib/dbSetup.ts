@@ -7,6 +7,7 @@ export const COLLECTION_NOTES = 'notes';
 export const COLLECTION_TASKS = 'tasks';
 export const COLLECTION_EVENTS = 'calendar_events';
 export const COLLECTION_FINANCE = 'finance_transactions';
+export const COLLECTION_GAME = 'game_highscores';
 export const BUCKET_FILES = 'files';
 
 /**
@@ -50,6 +51,13 @@ export async function initializeDatabase() {
       console.log('[Database Bootstrap] Kolekce "finance_transactions" byla úspěšně ověřena.');
     } catch (e) {
       console.warn('[Database Bootstrap] Upozornění: Kolekce "finance_transactions" není dostupná. Ujistěte se, že existuje v Appwrite.');
+    }
+
+    try {
+      await databases.listDocuments(DATABASE_ID, COLLECTION_GAME);
+      console.log('[Database Bootstrap] Kolekce "game_highscores" byla úspěšně ověřena.');
+    } catch (e) {
+      console.warn('[Database Bootstrap] Upozornění: Kolekce "game_highscores" není dostupná. Ujistěte se, že existuje v Appwrite.');
     }
 
     // Ověření Storage Bucket z Fáze 3

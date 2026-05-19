@@ -111,7 +111,14 @@ export default function Window({ window: win }: WindowProps) {
         style={{ padding: (win.url || AppComponent) ? 0 : '18px' }}
       >
         {AppComponent ? (
-          <AppComponent window={win} />
+          <React.Suspense fallback={
+            <div className="app-loading-fallback animate-fade-in">
+              <div className="spinner"></div>
+              <span>Načítání aplikace...</span>
+            </div>
+          }>
+            <AppComponent window={win} />
+          </React.Suspense>
         ) : win.url ? (
           <IframeLoader url={win.url} windowId={win.id} token={win.token || ''} />
         ) : (

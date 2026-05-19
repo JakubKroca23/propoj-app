@@ -126,3 +126,31 @@
 - **Email (REQ-17)**: Zvolena **Varianta A** — Reálná IMAP/SMTP klientská integrace. Uživatel si v Nastavení OS (Nastavení -> Účty a Integrace) zadá své IMAP a SMTP přihlašovací údaje (host, port, username, password). Systém s nimi bude komunikovat přes zabezpečenou Appwrite serverless Node.js funkci (TCP proxy socket).
 - **Počasí (REQ-18)**: Dohodnuto použití bezplatného a veřejného **Open-Meteo API** (`open-meteo.com`), které nevyžaduje žádnou registraci ani API klíče. Geolokace se získá přes `navigator.geolocation` v prohlížeči, s plynulým fallbackem na Prahu v případě offline/zamítnutí práv.
 
+---
+
+## Fáze 5 — Rozhodnutí (2026-05-19)
+
+### 1. Nástavbářská RTS Hra (REQ-16)
+- **Téma**: Odlehčený Warcraft 2 styl zasazený do prostředí nástavbářské/utilitní strojírenské firmy (výroba speciálních nástaveb na nákladní podvozky).
+- **Jednotky**:
+  - **Šasi (Worker)**: Základní podvozek na kolech. Sbírá ocel ze Šrotiště a dováží ji do Hlavní dílny.
+  - **Jeřábový vůz (Builder)**: Stavební vozidlo s ramenem jeřábu. Staví a opravuje budovy na mapě.
+  - **Čelní nakladač (Melee Fighter)**: Bojová jednotka s radlicí/lžící na boj zblízka.
+  - **Hasičská plošina (Ranged Fighter)**: Bojový vůz s dálkovým vodním dělem pro střelbu na dálku.
+  - **Konkurenční sabotéři (Nepřátelé)**: Černá auta s porouchaným kouřem vysílaná konkurencí na sabotáž základny.
+- **Budovy & Mechaniky**:
+  - **Hlavní dílna (HQ)**: Výroba Šasi a Jeřábů, odevzdávání surovin.
+  - **Montážní hala (Assembly)**: Výroba bojových nástaveb (Nakladače, Hasičské plošiny).
+  - **Sklad součástek (Depot)**: Zvyšuje kapacitu strojového parku (limit jednotek).
+  - **Automatický důl (Steel Mine)**: Důl na ocel s automatickou těžbou na grid mřížce.
+- **Ukládání skóre**: Výsledné skóre hry a statistiky (vyrobené jednotky, přežité vlny) se po skončení hry ukládají do Appwrite databáze pod kolekci `game_highscores`.
+
+### 2. Animace a Optimalizace výkonu
+- **Animace**: Zvolena **Varianta A** — čisté a vysoce výkonné CSS keyframes a transitions, které udrží minimální velikost výsledného bundle bez závislosti na Framer Motion.
+- **Optimalizace výkonu**: Zavedení asynchronního **Lazy Loading & Code Splitting** pomocí `React.lazy()` a `Suspense` pro všechny core aplikace (včetně RTS hry), čímž dojde k výraznému snížení počátečního stahovaného balíku frontend kódu v prohlížeči.
+
+### 3. Dockerizace & Traefik Síť (REQ-20)
+- **Docker**: Vytvořit produkční `Dockerfile` založený na Nginx SPA konfiguraci.
+- **Síťování**: `docker-compose.yml` bude nastaven tak, aby frontend kontejner běžel za reverzní proxy Traefik na subdoméně `propoj.app`, přičemž komunikace s Appwrite serverem bude probíhat v rámci interní docker sítě.
+
+
