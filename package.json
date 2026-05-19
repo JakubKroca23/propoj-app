@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tiptap/react": "^3.23.5",
+    "@tiptap/starter-kit": "^3.23.5",
+    "@use-gesture/react": "^10.3.1",
     "appwrite": "^25.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "zustand": "^5.0.13",
-    "@use-gesture/react": "^10.3.1"
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
