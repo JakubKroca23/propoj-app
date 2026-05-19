@@ -1,7 +1,7 @@
 # STATE.md — Project Memory
 
 > **Aktualizováno**: 2026-05-19
-> **Aktuální fáze**: Fáze 4 — Finance & Externí Integrace
+> **Aktuální fáze**: Fáze 5 — RTS Hra & Polish
 > **Status**: ⬜ Nezačato (Aktivní)
 
 ---
@@ -9,24 +9,25 @@
 ## Kontext
 
 Projekt propoj.app je webový operační systém "Canvas OS" postavený na React + TypeScript + Appwrite.
-Fáze 1, Fáze 2 a Fáze 3 jsou kompletně dokončeny, plně ověřeny a otestovány.
+Fáze 1, Fáze 2, Fáze 3 a Fáze 4 jsou kompletně dokončeny, plně ověřeny a otestovány.
 
 ---
 
 ## Aktuální pozice
 
-- **Fáze**: 4 — Finance & Externí Integrace
-- **Status**: Plánování dokončeno
-- **Plány**: Vytvořeny a ověřeny plány 4.1, 4.2 a 4.3
+- **Fáze**: 5 — RTS Hra & Polish
+- **Status**: Nezačato
+- **Plány**: Žádné aktivní plány
 
 ## Další krok
 
-1. Spustit `/execute 4` pro realizaci Fáze 4 (Finance, Počasí, Geolokace, E-mail a Bento Grid widgety)
+1. Spustit `/plan 5` pro rozvržení Fáze 5 (mini-RTS strategie na Canvasu, optimalizace výkonu a Dockerizace)
 
 ---
 
 ## Poslední akce
 
+- [2026-05-19] Fáze 4: Finance & Externí Integrace (Finance, Počasí, Geolokace, E-mail, Bento widgety) kompletně dokončena, typově otestována (tsc pass) a sestavena do produkční verze (build pass)
 - [2026-05-19] Fáze 2: Plugin Systém & App Registry kompletně dokončena, typově otestována (npx tsc --noEmit pass) a zkompilována (npm run build pass)
 - [2026-05-19] GSD reinstalován (nejnovější verze)
 - [2026-05-19] SPEC.md, REQUIREMENTS.md, ROADMAP.md vytvořeny

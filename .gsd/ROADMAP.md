@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Fáze 3: Core Aplikace — Produktivita (Dokončeno)
+> **Aktuální fáze**: Fáze 4: Finance & Externí Integrace (Dokončeno)
 > **Milestone**: v1.0 — Canvas OS MVP
 
 ---
@@ -11,7 +11,7 @@
 - [ ] Appwrite Auth (přihlášení/odhlášení)
 - [x] Plugin systém (iframe + manifest)
 - [x] 5 core aplikací funkčních end-to-end
-- [ ] Email a počasí integrace
+- [x] Email a počasí integrace
 - [x] Dark/light mode
 - [ ] Dockerizace
 
@@ -67,7 +67,7 @@
 ---
 
 ### Fáze 4: Finance & Externí Integrace
-**Status**: ⬜ Nezačato
+**Status**: ✅ Complete
 **Cíl**: Finance aplikace + napojení na email a počasí
 **Požadavky**: REQ-14, REQ-17, REQ-18
 
