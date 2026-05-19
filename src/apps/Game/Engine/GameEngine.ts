@@ -104,7 +104,7 @@ export class GameEngine {
   private isSelecting = false;
   
   // Callbacks pro React UI
-  private onStateChange: () => void;
+  private onStateChange: (engine: GameEngine) => void;
   private onGameOver: (finalScore: number, seconds: number, waves: number) => void;
   
   private lastTime = 0;
@@ -113,7 +113,7 @@ export class GameEngine {
 
   constructor(
     canvas: HTMLCanvasElement,
-    onStateChange: () => void,
+    onStateChange: (engine: GameEngine) => void,
     onGameOver: (finalScore: number, seconds: number, waves: number) => void
   ) {
     this.canvas = canvas;
@@ -201,7 +201,7 @@ export class GameEngine {
     
     // Aktuální populace
     this.currentPopulation = this.units.filter(u => u.faction === 'player').length;
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   private spawnUnit(type: UnitType, faction: GameFaction, x: number, y: number) {
@@ -503,7 +503,7 @@ export class GameEngine {
       return p.life > 0;
     });
 
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   private spawnEnemyWave() {
@@ -529,7 +529,7 @@ export class GameEngine {
     }
 
     this.wave += 1;
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   private createExplosion(x: number, y: number, color: string, count: number) {
@@ -859,7 +859,7 @@ export class GameEngine {
       });
     }
 
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   // Pravé kliknutí: přesun vybraných jednotek nebo akce (těžba, útok)
@@ -892,7 +892,7 @@ export class GameEngine {
       }
     });
 
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   // Stavění budov
@@ -923,7 +923,7 @@ export class GameEngine {
     if (this.steel < cost) {
       alert('Nedostatek oceli!');
       this.selectedBuildingToBuild = null;
-      this.onStateChange();
+      this.onStateChange(this);
       return;
     }
 
@@ -967,7 +967,7 @@ export class GameEngine {
     });
 
     this.selectedBuildingToBuild = null;
-    this.onStateChange();
+    this.onStateChange(this);
   }
 
   // Výroba strojů v Montážní hale

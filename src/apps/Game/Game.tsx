@@ -37,15 +37,15 @@ export default function Game() {
     // Inicializace herního enginu
     const gameEngine = new GameEngine(
       canvasRef.current,
-      () => {
+      (eng) => {
         // State update callback
-        setSteel(Math.floor(gameEngine.steel));
-        setPopulation(gameEngine.currentPopulation);
-        setMaxPopulation(gameEngine.maxPopulation);
-        setWave(gameEngine.wave);
-        setWaveTimer(Math.max(0, Math.floor(gameEngine.waveTimer)));
-        setScore(gameEngine.score);
-        setSecondsPlayed(gameEngine.secondsPlayed);
+        setSteel(Math.floor(eng.steel));
+        setPopulation(eng.currentPopulation);
+        setMaxPopulation(eng.maxPopulation);
+        setWave(eng.wave);
+        setWaveTimer(Math.max(0, Math.floor(eng.waveTimer)));
+        setScore(eng.score);
+        setSecondsPlayed(eng.secondsPlayed);
       },
       (finalScore, duration, wavesSurvived) => {
         // Game Over callback
@@ -71,14 +71,14 @@ export default function Game() {
     if (!canvasRef.current) return;
     const gameEngine = new GameEngine(
       canvasRef.current,
-      () => {
-        setSteel(Math.floor(gameEngine.steel));
-        setPopulation(gameEngine.currentPopulation);
-        setMaxPopulation(gameEngine.maxPopulation);
-        setWave(gameEngine.wave);
-        setWaveTimer(Math.max(0, Math.floor(gameEngine.waveTimer)));
-        setScore(gameEngine.score);
-        setSecondsPlayed(gameEngine.secondsPlayed);
+      (eng) => {
+        setSteel(Math.floor(eng.steel));
+        setPopulation(eng.currentPopulation);
+        setMaxPopulation(eng.maxPopulation);
+        setWave(eng.wave);
+        setWaveTimer(Math.max(0, Math.floor(eng.waveTimer)));
+        setScore(eng.score);
+        setSecondsPlayed(eng.secondsPlayed);
       },
       (finalScore, duration, wavesSurvived) => {
         setIsGameOver(true);
