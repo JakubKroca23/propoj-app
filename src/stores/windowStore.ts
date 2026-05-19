@@ -8,7 +8,7 @@ interface WindowStore {
   windows: AppWindow[];
   isDragging: boolean;
   setIsDragging: (v: boolean) => void;
-  openWindow: (app: AppDefinition) => void;
+  openWindow: (app: AppDefinition & { url?: string; isPlugin?: boolean }) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
@@ -42,6 +42,8 @@ export const useWindowStore = create<WindowStore>((set) => ({
       const x = Math.max(20, (window.innerWidth - width) / 2 + offset);
       const y = Math.max(20, (window.innerHeight - height - 56) / 2 + offset);
 
+      const token = app.url ? crypto.randomUUID() : undefined;
+
       const newWindow: AppWindow = {
         id: generateWindowId(),
         appId: app.id,
@@ -54,6 +56,8 @@ export const useWindowStore = create<WindowStore>((set) => ({
         zIndex: getNextZIndex(),
         isMinimized: false,
         isMaximized: false,
+        url: app.url,
+        token,
       };
 
       return {

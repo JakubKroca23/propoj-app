@@ -5,6 +5,7 @@ import { useWindowStore } from '@/stores/windowStore';
 import { clampPosition } from '@/utils/windowUtils';
 import WindowHeader from './WindowHeader';
 import Settings from '@/apps/Settings/Settings';
+import IframeLoader from './IframeLoader';
 import './Window.css';
 
 interface WindowProps {
@@ -101,9 +102,11 @@ export default function Window({ window: win }: WindowProps) {
         />
       </div>
 
-      <div className="window-content">
+      <div className="window-content" style={{ padding: win.url ? 0 : '18px' }}>
         {win.appId === 'settings' ? (
           <Settings />
+        ) : win.url ? (
+          <IframeLoader url={win.url} windowId={win.id} token={win.token || ''} />
         ) : (
           <div className="window-placeholder">
             <div className="window-placeholder-icon">{win.icon}</div>

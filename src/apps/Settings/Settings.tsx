@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProfileSection from './sections/ProfileSection';
 import AppearanceSection from './sections/AppearanceSection';
+import PluginsSection from './sections/PluginsSection';
 import './Settings.css';
 
 export default function Settings() {
@@ -80,11 +81,8 @@ export default function Settings() {
             <div className="settings-section">
               <h2 className="settings-section-title">Systémové pluginy</h2>
               <p className="settings-section-subtitle">Instalace a správa rozšiřujících doplňků systému Canvas OS.</p>
-              <div className="settings-section-content placeholder-section">
-                <div className="settings-placeholder-graphic">🔌</div>
-                <p className="settings-placeholder-text">
-                  Správa a instalace pluginů bude zpřístupněna ve Fázi 2.
-                </p>
+              <div className="settings-section-content">
+                <PluginsSection />
               </div>
             </div>
           )}

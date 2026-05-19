@@ -14,4 +14,6 @@ export interface AppWindow {
   zIndex: number;
   isMinimized: boolean;
   isMaximized: boolean;
+  url?: string;
+  token?: string;
 }

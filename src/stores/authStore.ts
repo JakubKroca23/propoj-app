@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { account } from '@/lib/appwrite';
 import { AppwriteUser } from '@/types';
+import { initializeDatabase } from '@/lib/dbSetup';
 
 interface AuthState {
   user: AppwriteUser | null;
@@ -15,12 +16,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isLoading: true,
   error: null,
-
+  
   init: async () => {
     set({ isLoading: true, error: null });
     try {
       const user = await account.get();
       set({ user, isLoading: false });
+      // Inicializace databáze po načtení přihlášeného uživatele
+      await initializeDatabase();
     } catch (err: any) {
       set({ user: null, isLoading: false });
     }
@@ -32,6 +35,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       await account.createEmailPasswordSession(email, password);
       const user = await account.get();
       set({ user, isLoading: false });
+      // Inicializace databáze po přihlášení
+      await initializeDatabase();
     } catch (err: any) {
       set({ error: err.message || 'Chyba při přihlášení', isLoading: false });
     }

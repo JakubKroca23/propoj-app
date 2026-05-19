@@ -1,0 +1,9 @@
+{
+  "id": "calculator",
+  "name": "Kalkulačka",
+  "description": "Jednoduchá kalkulačka běžící v bezpečném sandboxu pluginu",
+  "version": "1.0.0",
+  "icon": "🧮",
+  "entrypoint": "index.html",
+  "permissions": ["notification"]
+}

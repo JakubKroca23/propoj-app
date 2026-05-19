@@ -1,18 +1,18 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Fáze 1: Základ — OS Shell & Auth (Dokončeno)
+> **Aktuální fáze**: Fáze 2: Plugin Systém & App Registry (Dokončeno)
 > **Milestone**: v1.0 — Canvas OS MVP
 
 ---
 
 ## Must-Haves (z SPEC)
 
-- [ ] OS shell: launcher, plovoucí okna, command bar, workspaces
+- [x] OS shell: launcher, plovoucí okna, command bar, workspaces
 - [ ] Appwrite Auth (přihlášení/odhlášení)
-- [ ] Plugin systém (iframe + manifest)
+- [x] Plugin systém (iframe + manifest)
 - [ ] 5 core aplikací funkčních end-to-end
 - [ ] Email a počasí integrace
-- [ ] Dark/light mode
+- [x] Dark/light mode
 - [ ] Dockerizace
 
 ---
@@ -36,7 +36,7 @@
 ---
 
 ### Fáze 2: Plugin Systém & App Registry
-**Status**: ⬜ Nezačato
+**Status**: ✅ Complete
 **Cíl**: Fungující plugin engine — lze zaregistrovat, nainstalovat a spustit plugin v sandboxed iframe
 **Požadavky**: REQ-07, REQ-08, REQ-09
 
