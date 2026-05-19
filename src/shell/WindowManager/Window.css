@@ -1,0 +1,112 @@
+.os-window {
+  position: absolute;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-fast);
+  animation: scaleIn 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.os-window.active {
+  box-shadow: 0 10px 40px rgba(108, 71, 255, 0.15), var(--shadow-lg);
+  border-color: rgba(108, 71, 255, 0.3);
+}
+
+.os-window.maximized {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: calc(100vh - 56px) !important;
+  border-radius: 0 !important;
+  border: none !important;
+  animation: none !important;
+}
+
+.window-header {
+  height: 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: grab;
+  width: 100%;
+}
+
+.os-window.dragging .window-header {
+  cursor: grabbing;
+}
+
+.win-control-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+  transition: filter var(--transition-fast);
+  background-color: var(--btn-color);
+  border: none;
+}
+
+.win-control-btn.minimize {
+  --btn-color: #FEBC2E;
+}
+
+.win-control-btn.maximize {
+  --btn-color: #28C840;
+}
+
+.win-control-btn.close {
+  --btn-color: #FF5F56;
+}
+
+.win-control-btn:hover {
+  filter: brightness(0.85);
+}
+
+.window-content {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.window-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+.window-placeholder-icon {
+  font-size: 3rem;
+}
+
+.window-placeholder-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.window-placeholder-desc {
+  font-size: 0.875rem;
+  text-align: center;
+  max-width: 320px;
+}
+
+.resize-handle-se {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  cursor: se-resize;
+  z-index: 10;
+  background: linear-gradient(135deg, transparent 50%, var(--border-default) 50%);
+}
