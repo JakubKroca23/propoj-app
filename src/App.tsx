@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useAuthStore } from '@/stores/authStore';
 import Login from '@/pages/Login';
+import Shell from '@/shell/Shell';
 
 function MainApp() {
   const { user, isLoading, init } = useAuthStore();
@@ -28,24 +29,7 @@ function MainApp() {
     return <Login />;
   }
 
-  return (
-    <div 
-      className="flex items-center justify-center" 
-      style={{ height: '100vh', width: '100vw', background: 'var(--bg-base)', color: 'var(--text-primary)' }}
-    >
-      <div className="flex flex-col items-center gap-4">
-        <h1 className="text-2xl font-bold">OS Shell bude zde</h1>
-        <p className="text-sm text-secondary">Přihlášen jako {user.name} ({user.email})</p>
-        <button 
-          onClick={() => useAuthStore.getState().logout()}
-          className="login-submit-btn" 
-          style={{ width: 'auto', padding: '10px 20px', marginTop: '16px' }}
-        >
-          Odhlásit se
-        </button>
-      </div>
-    </div>
-  );
+  return <Shell />;
 }
 
 export default function App() {
