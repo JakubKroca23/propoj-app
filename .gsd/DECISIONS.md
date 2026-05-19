@@ -108,3 +108,21 @@
 ### 3. Backend, limity & upload
 - Pro správce souborů bude vytvořen nový Storage Bucket s názvem `files` v Appwrite.
 - Pro nahrávání velkých souborů implementujeme progress bary s ošetřeným limitem velikosti, aby upload neblokoval UI.
+
+---
+
+## Fáze 4 — Rozhodnutí (2026-05-19)
+
+### 1. Rozsah & Integrace
+- **Bento Widgety**: Plná integrace a oživení Bento Grid launcheru:
+  - **Hodiny a datum**: Digitální hodiny s live vteřinovým překreslováním.
+  - **Počasí widget**: Aktuální teplota a ikona z Open-Meteo API s proklikem do Weather aplikace.
+  - **Nadcházející úkoly**: Rychlý checklist nevyřízených úkolů synchronizovaný se Zustand storem Tasks.
+  - **Poslední soubory**: Seznam 3-4 posledních nahraných souborů ve FileManageru.
+  - **Budget Widget**: Rychlý vizuální bar znázorňující poměr příjmů a výdajů.
+
+### 2. Implementační přístupy aplikací
+- **Finance (REQ-14)**: Zvolena **Varianta A** — Záznam příjmů/výdajů s kategoriemi a vlastním renderingem grafů pomocí responsivních **React-SVG elementů** bez externích knihoven, zaručující 100% kontrolu nad glassmorphic dark/light tématem.
+- **Email (REQ-17)**: Zvolena **Varianta A** — Reálná IMAP/SMTP klientská integrace. Uživatel si v Nastavení OS (Nastavení -> Účty a Integrace) zadá své IMAP a SMTP přihlašovací údaje (host, port, username, password). Systém s nimi bude komunikovat přes zabezpečenou Appwrite serverless Node.js funkci (TCP proxy socket).
+- **Počasí (REQ-18)**: Dohodnuto použití bezplatného a veřejného **Open-Meteo API** (`open-meteo.com`), které nevyžaduje žádnou registraci ani API klíče. Geolokace se získá přes `navigator.geolocation` v prohlížeči, s plynulým fallbackem na Prahu v případě offline/zamítnutí práv.
+
