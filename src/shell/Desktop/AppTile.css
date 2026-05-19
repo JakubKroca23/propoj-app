@@ -1,0 +1,88 @@
+.app-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  text-align: left;
+}
+
+.app-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+  pointer-events: none;
+}
+
+.app-tile:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--tile-color);
+  box-shadow: 0 8px 30px var(--tile-glow-color);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+html[data-theme="light"] .app-tile:hover {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+/* Bento grid sizing */
+.app-tile.size-sm {
+  grid-column: span 1;
+  grid-row: span 1;
+  aspect-ratio: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-tile.size-md {
+  grid-column: span 2;
+  grid-row: span 1;
+  aspect-ratio: 2 / 1;
+}
+
+.app-tile.size-lg {
+  grid-column: span 3;
+  grid-row: span 2;
+  aspect-ratio: 3 / 2;
+}
+
+.app-tile-icon {
+  font-size: 2.25rem;
+  transition: transform var(--transition-slow);
+}
+
+.app-tile.size-sm .app-tile-icon {
+  font-size: 2rem;
+}
+
+.app-tile:hover .app-tile-icon {
+  transform: scale(1.15);
+}
+
+.app-tile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.app-tile-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.app-tile-desc {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}

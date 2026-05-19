@@ -1,0 +1,16 @@
+.bento-launcher {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-auto-rows: 130px;
+  gap: 20px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .bento-launcher {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-auto-rows: 110px;
+    gap: 12px;
+  }
+}
