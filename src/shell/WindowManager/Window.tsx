@@ -4,6 +4,7 @@ import { AppWindow } from '@/types';
 import { useWindowStore } from '@/stores/windowStore';
 import { clampPosition } from '@/utils/windowUtils';
 import WindowHeader from './WindowHeader';
+import Settings from '@/apps/Settings/Settings';
 import './Window.css';
 
 interface WindowProps {
@@ -101,13 +102,17 @@ export default function Window({ window: win }: WindowProps) {
       </div>
 
       <div className="window-content">
-        <div className="window-placeholder">
-          <div className="window-placeholder-icon">{win.icon}</div>
-          <h3 className="window-placeholder-title">{win.title}</h3>
-          <p className="window-placeholder-desc">
-            Aplikace {win.title} bude plně integrována ve Fázi 3.
-          </p>
-        </div>
+        {win.appId === 'settings' ? (
+          <Settings />
+        ) : (
+          <div className="window-placeholder">
+            <div className="window-placeholder-icon">{win.icon}</div>
+            <h3 className="window-placeholder-title">{win.title}</h3>
+            <p className="window-placeholder-desc">
+              Aplikace {win.title} bude plně integrována ve Fázi 3.
+            </p>
+          </div>
+        )}
       </div>
 
       {!win.isMaximized && (
