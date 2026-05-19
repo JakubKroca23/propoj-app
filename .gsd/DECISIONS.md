@@ -89,3 +89,22 @@
 - **Rozhodnutí**: Zvolena **Varianta A** — Přísný Iframe Sandbox (`sandbox="allow-scripts"` bez `allow-same-origin`).
 - **Důvod**: Maximální izolace pluginů od citlivých tokenů, cookies a localStorage systému Canvas OS.
 - **Komunikace**: Výhradně přes `window.postMessage` se striktní validací `event.origin` a typovaným API protokolem (CanvasOS API bridge).
+
+---
+
+## Fáze 3 — Rozhodnutí (2026-05-19)
+
+### 1. Rozsah & Integrace
+- **Synchronizace s widgety**: Plovoucí okna aplikací (Kalendář, Úkoly, Počasí) budou přímo synchronizována s widgety na ploše. Změna v aplikaci okamžitě překreslí widget.
+- **PDF Prohlížeč**: Bude mít dedikovanou ikonku v launcheru jako samostatná aplikace pro otevření libovolného PDF souboru, ale zároveň se spustí jako automatický handler při kliknutí na `.pdf` soubor ve Správci souborů.
+- **Globální vyhledávání (Ctrl+K)**: Zaveden Command Bar vyhledávající napříč všemi entitami (soubory, poznámky, úkoly, události) s možností rychlé filtrace/přepínání okruhu hledání.
+
+### 2. Implementační přístupy aplikací
+- **Poznámky (Notes)**: Zvolena **Varianta A** — Plná integrace **Tiptap** rich-text editoru pro moderní WYSIWYG psaní poznámek s ukládáním do HTML/JSON formátu v Appwrite.
+- **Správce souborů (Files)**: Zvolena **Varianta B** — Breadcrumbs navigace (cesta složek nahoře, pod tím grid souborů a složek se stylem Google Drive) napojená na Appwrite Storage Bucket `files`.
+- **Úkoly (Tasks)**: Zvolena **Varianta B** — Hybridní rozhraní umožňující přepínat zobrazení mezi Kanban deskovým zobrazením a lineárním seznamem s filtry.
+- **Kalendář**: Schválen vývoj **plně vlastního, lehkého kalendářového gridu v Reactu (CSS Grid)** bez těžkých externích knihoven, zaručující 100% kontrolu nad skleněným dark/light UX.
+
+### 3. Backend, limity & upload
+- Pro správce souborů bude vytvořen nový Storage Bucket s názvem `files` v Appwrite.
+- Pro nahrávání velkých souborů implementujeme progress bary s ošetřeným limitem velikosti, aby upload neblokoval UI.
