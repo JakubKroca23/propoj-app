@@ -1,5 +1,32 @@
 # DECISIONS.md — Architecture Decision Record
 
+---
+
+## Fáze 1 — Rozhodnutí (2026-05-19)
+
+### Scope
+- Nastavení (dark/light přepínač + uživatelský profil) patří do Fáze 1
+- Workspaces v Fázi 1: pouze vizuální přepínání bez persistence do Appwrite
+
+### WindowManager
+- Zvolena **Varianta A — CSS/DOM based** (absolutně pozicované divy)
+- Důvod: iframe pluginy jsou klíčové — canvas render by je znemožnil
+- Implementace: `@use-gesture/react` nebo nativní mouse events + ZIndexManager
+- Řešení iframe drag-bug: `pointer-events: none` overlay přes iframe při dragu
+
+### State Management
+- **Zustand** pro globální stav (WindowManager, workspaces, plugin registry, auth)
+- React Context pouze pro theme (dark/light)
+
+### Routing
+- Pouze dvě routes: `/login` a `/` (OS shell)
+- Bez React Router — jednoduchý podmíněný render podle auth stavu
+
+### Appwrite
+- Project ID: `69effdf6003ce697ee83`
+- API Endpoint: `https://appwrite.propoj.app/v1`
+- Čistý projekt, žádná existující data k migraci
+
 > Záznamy klíčových architektonických rozhodnutí
 
 ---
