@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Fáze 4: Finance & Externí Integrace (Dokončeno)
+> **Aktuální fáze**: Fáze 5: RTS Hra & Polish (Dokončeno)
 > **Milestone**: v1.0 — Canvas OS MVP
 
 ---
@@ -80,7 +80,7 @@
 ---
 
 ### Fáze 5: RTS Hra & Polish
-**Status**: ⬜ Nezačato
+**Status**: ✅ Complete
 **Cíl**: RTS hra jako plnohodnotná OS aplikace + finální polish celého systému
 **Požadavky**: REQ-16, REQ-19, REQ-20
 
