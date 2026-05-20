@@ -154,3 +154,17 @@
 - **Síťování**: `docker-compose.yml` bude nastaven tak, aby frontend kontejner běžel za reverzní proxy Traefik na subdoméně `propoj.app`, přičemž komunikace s Appwrite serverem bude probíhat v rámci interní docker sítě.
 
 
+---
+
+## Fáze 6 — Rozhodnutí (2026-05-20)
+
+### Přihlašovací obrazovka (Login)
+- **Rozhodnutí**: Kombinace obou variant. Pozadí bude tvořeno vysoce kvalitní tapetou s fluidním gridem a pomalu plovoucími animovanými neonovými sférami. V popředí bude zobrazen elegantní čas a datum evokující zamykací obrazovku (Lock Screen). Plynulým gestem/kliknutím dojde k přechodu na skleněnou (glassmorphic) kartu přihlášení a registrace.
+
+### Taskbar a plocha (Dock)
+- **Rozhodnutí**: Kompletní rework Taskbaru na plovoucí dok (floating Dock) centrovaný uprostřed dole (styl macOS Dock). Bude menší, elegantnější a bude se vznášet nad dolním okrajem obrazovky s jemným rozostřením pozadí (backdrop-filter) a zářící linkou.
+- **Správa procesů**: Dock bude integrovat zástupce aplikací s aktivními vizuálními indikátory (tečka pod ikonou pro běžící proces, jasná svítící tečka pro aktivně zaostřenou instanci, a snížená průhlednost pro minimalizovaná okna).
+
+### Horní lišta & Virtuální plochy
+- **Rozhodnutí**: Horní systémová lišta (Top Bar) byla zamítnuta pro zachování čistoty a maximální plochy obrazovky.
+- **Rozhodnutí**: Přepínač virtuálních ploch (Workspace Switcher) byl zamítnut a bude zcela odstraněn/skryt, aby se rozhraní zjednodušilo a soustředilo se na přímou práci s okny na jediné ploše.
