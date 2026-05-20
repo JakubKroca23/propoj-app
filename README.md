@@ -38,14 +38,14 @@ Projekt je plně připraven pro produkční nasazení v Dockeru za reverzní pro
 
 ### 📋 Požadavky
 *   Nainstalovaný **Docker** a **Docker Compose**.
-*   Běžící instance **Traefik** proxy připojená na externí docker síť `traefik-public`.
+*   Běžící instance **Traefik** proxy připojená na externí docker síť `appwrite`.
 *   Běžící backend **Appwrite** (lze provozovat ve stejné síti).
 
 ### 🛠️ Spuštění v produkci
 
-1.  Ujistěte se, že máte vytvořenou externí síť pro Traefik:
+1.  Ujistěte se, že máte vytvořenou externí síť pro Traefik / Appwrite:
     ```bash
-    docker network create traefik-public
+    docker network create appwrite
     ```
 
 2.  Spusťte sestavení a start kontejneru pomocí Docker Compose:
