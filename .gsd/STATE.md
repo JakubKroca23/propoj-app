@@ -1,8 +1,8 @@
 # STATE.md — Project Memory
 
-> **Aktualizováno**: 2026-05-19
+> **Aktualizováno**: 2026-05-20
 > **Aktuální fáze**: Fáze 5 — RTS Hra & Polish
-> **Status**: ⬜ Plánování dokončeno (Aktivní)
+> **Status**: Active (resumed 2026-05-20)
 
 ---
 
