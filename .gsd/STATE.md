@@ -16,13 +16,13 @@ Všechny fáze (1-5) jsou kompletně dokončeny, plně ověřeny a otestovány.
 ## Aktuální pozice
 
 - **Fáze**: 5 — RTS Hra & Polish (Milestone v1.0 — Canvas OS MVP dokončen!)
-- **Status**: Všechny úkoly dokončeny a ověřeny
-- **Plány**: Všechny prováděcí plány splněny v `.gsd/phases/5/`
+- **Status**: Všechny úkoly dokončeny, verifikovány a zdokumentovány
+- **Plány**: Připraveny a přidány Fáze 6 až 10 pro v2.0 UI/UX Rework
 
 ## Další krok
 
-1. Oslavit dokončení Milestone v1.0! 🎉
-2. Přejít k dalším budoucím verzím (v2.0+) dle ROADMAP.md.
+1. Spustit plánování Fáze 6 (Rework základního UI) pomocí `/plan 6`.
+2. Pokračovat na vlně modernizace designu a přizpůsobitelnosti plochy.
 
 ---
 

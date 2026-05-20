@@ -8,12 +8,12 @@
 ## Must-Haves (z SPEC)
 
 - [x] OS shell: launcher, plovoucí okna, command bar, workspaces
-- [ ] Appwrite Auth (přihlášení/odhlášení)
+- [x] Appwrite Auth (přihlášení/odhlášení)
 - [x] Plugin systém (iframe + manifest)
 - [x] 5 core aplikací funkčních end-to-end
 - [x] Email a počasí integrace
 - [x] Dark/light mode
-- [ ] Dockerizace
+- [x] Dockerizace
 
 ---
 
@@ -91,6 +91,72 @@
 - Dockerizace (Dockerfile + docker-compose pro Appwrite + frontend)
 - End-to-end testování kritických cest
 - README a dokumentace pro self-hosting
+
+---
+
+### Fáze 6: Rework základního UI
+**Status**: ⬜ Not Started
+**Cíl**: Kompletní přepracování základního shellu (Taskbar, Horní lišta, přepínač virtuálních ploch, přihlašovací obrazovka)
+**Depends on**: Fáze 5
+
+**Úkoly:**
+- Modernizace přihlašovací a registrační obrazovky (nové efekty, plynulé animace)
+- Přepracování Taskbaru (ikony otevřených aplikací, indikátor aktivního okna, zobrazení běžících procesů)
+- Horní systémová lišta (rychlé přepínače pro Wifi/Network, hlasitost, stav baterie, systémové hodiny s kalendářem)
+- Zdokonalený přepínač ploch (Workspace Switcher) s vizuálním náhledem otevřených oken
+
+---
+
+### Fáze 7: Úprava plochy — nové možnosti
+**Status**: ⬜ Not Started
+**Cíl**: Rozšíření možností Bento Grid plochy o uživatelskou přizpůsobitelnost a nové typy kachliček
+**Depends on**: Fáze 6
+
+**Úkoly:**
+- Možnost přeskupování (Drag & Drop) kachliček přímo uživatelem na ploše s ukládáním pozic do Appwrite
+- Změna velikosti kachliček (1x1, 2x1, 2x2, 4x2) v reálném čase
+- Vlastní tapety plochy (vysoce kvalitní Unsplash integrace, možnost nahrát vlastní obrázek, animované gradienty)
+- Rychlí zástupci souborů a složek přímo na ploše (desktop icons)
+
+---
+
+### Fáze 8: Rework systému aplikací a widgetů
+**Status**: ⬜ Not Started
+**Cíl**: Standardizace API pro systémové aplikace a interaktivní Bento widgety na ploše
+**Depends on**: Fáze 7
+
+**Úkoly:**
+- Sjednocení komunikačního a stavového rozhraní aplikací pro lepší integraci se shellem
+- Nový widget engine pro Bento Grid (podpora pro dynamické grafy, mini Kanban widget, počasí s hodinovou předpovědí)
+- Systém pro ukládání a obnovení stavu aplikací (Session Restore) po znovunačtení stránky
+- Přepracovaný správce procesů (Task Manager) pro sledování paměti a ukončování zamrzlých oken/aplikací
+
+---
+
+### Fáze 9: Rework DESIGNU (Vizuální styl v2.0)
+**Status**: ⬜ Not Started
+**Cíl**: Přechod na ultra-prémiový vizuální styl (Neo-Glassmorphism s hlubokými 3D vrstvami, dynamickými stíny a fluidními animacemi)
+**Depends on**: Fáze 8
+
+**Úkoly:**
+- Nový systém designových tokenů (hluboké skleněné efekty s filtrem šumu, dynamická změna sytosti, barevné aury)
+- Globální podpora pro barevná témata (Violet, Cyberpunk, Forest, Sakura, Monochrome)
+- Integrace moderní sady ikon (např. Lucide React nebo custom SVG ikony přizpůsobené zvoleným tématům)
+- Plynulé fyzikální animace oken (vycházející z principů pružnosti/spring physics)
+
+---
+
+### Fáze 10: Polishing & Finální optimalizace
+**Status**: ⬜ Not Started
+**Cíl**: Dosažení maximální plynulosti (60+ FPS), vyčištění chyb a finální příprava na produkci
+**Depends on**: Fáze 9
+
+**Úkoly:**
+- Profily výkonu (odstranění zbytečných re-renderů v Reactu, optimalizace překreslování Canvas RTS hry)
+- Celosystémové klávesové zkratky a plná bezbariérovost (A11y/keyboard navigation)
+- Vyčištění a sjednocení CSS stylů, přechod na čisté utility proměnné
+- Kompletní testování kompatibility na mobilních zařízeních, Safari a Firefoxu
+- Finální sestavení produkčních kontejnerů s povoleným HTTP/3 a optimálním Brotli/Gzip komprimováním
 
 ---
 
