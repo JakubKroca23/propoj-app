@@ -1,62 +1,144 @@
 .os-taskbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0 20px;
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border-default);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  position: relative;
-  user-select: none;
-}
-
-.taskbar-center {
   position: absolute;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: auto;
+  max-width: 90vw;
+  height: 60px;
+  padding: 0 16px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(108, 71, 255, 0.08);
+  z-index: 9999;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.taskbar-left, .taskbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+html[data-theme="light"] .os-taskbar {
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 0, 0, 0.04);
 }
 
 .taskbar-windows-list {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
+/* Tlačítka běžících oken (Dock Icons) */
 .taskbar-win-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  border-radius: 6px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
-  font-size: 0.75rem;
-  font-weight: 500;
-  transition: all var(--transition-fast);
-  max-width: 120px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: 
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+    background-color 0.2s ease, 
+    border-color 0.2s ease,
+    opacity 0.25s ease;
+}
+
+html[data-theme="light"] .taskbar-win-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .taskbar-win-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--border-default);
+  transform: scale(1.18) translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.taskbar-win-btn.active {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 8px var(--accent-glow);
+html[data-theme="light"] .taskbar-win-btn:hover {
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.taskbar-icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.taskbar-win-btn:active {
+  transform: scale(0.95) translateY(0);
+}
+
+/* Minimalizovaný stav */
+.taskbar-win-btn.is-minimized {
+  opacity: 0.5;
+}
+
+.taskbar-win-btn.is-minimized:hover {
+  opacity: 0.85;
+}
+
+/* Indikátorové tečky pod ikonami */
+.taskbar-win-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Běží na pozadí */
+.taskbar-win-btn.is-active::after,
+.taskbar-win-btn.is-minimized::after {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+html[data-theme="light"] .taskbar-win-btn.is-active::after,
+html[data-theme="light"] .taskbar-win-btn.is-minimized::after {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Aktivní fokus (otevřené okno nahoře) */
+.taskbar-win-btn.has-focus::after {
+  background: var(--accent-primary);
+  width: 5px;
+  height: 5px;
+  box-shadow: 0 0 6px var(--accent-primary);
+}
+
+/* Svislý oddělovač */
+.taskbar-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 12px;
+}
+
+html[data-theme="light"] .taskbar-divider {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Widgety v doku (Clock a UserMenu) */
+.taskbar-widgets {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
