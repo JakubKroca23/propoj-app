@@ -69,7 +69,7 @@ export const useFilesStore = create<FilesState>((set, get) => ({
           name: 'Faktura_Kveten.pdf',
           size: 1450000,
           mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           folderPath: '/Dokumenty',
           createdAt: new Date(Date.now() - 86400000).toISOString()
         },
@@ -78,7 +78,7 @@ export const useFilesStore = create<FilesState>((set, get) => ({
           name: 'Katalog_Produktu.pdf',
           size: 3200000,
           mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           folderPath: '/Dokumenty',
           createdAt: new Date(Date.now() - 3600000).toISOString()
         },
@@ -96,7 +96,7 @@ export const useFilesStore = create<FilesState>((set, get) => ({
           name: 'Prezentace_Projektu.pdf',
           size: 5120000,
           mimeType: 'application/pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           folderPath: '/',
           createdAt: new Date().toISOString()
         }

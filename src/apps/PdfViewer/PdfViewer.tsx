@@ -67,19 +67,19 @@ export default function PdfViewer({ window: win }: PdfViewerProps) {
         {
           id: 'mock-pdf-1',
           name: 'Faktura_Kveten.pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           size: 1450000
         },
         {
           id: 'mock-pdf-2',
           name: 'Katalog_Produktu.pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           size: 3200000
         },
         {
           id: 'mock-pdf-3',
           name: 'Prezentace_Projektu.pdf',
-          url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          url: '/sample.pdf',
           size: 5120000
         }
       ];
