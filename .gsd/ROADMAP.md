@@ -1,7 +1,8 @@
 # ROADMAP.md
 
-> **Aktuální fáze**: Fáze 5: RTS Hra & Polish (Dokončeno)
-> **Milestone**: v1.0 — Canvas OS MVP
+> **Aktuální fáze**: Fáze 6: Rework základního UI (Dokončeno)
+> **Milestone**: v2.0 — UI/UX Rework
+
 
 ---
 
@@ -95,15 +96,16 @@
 ---
 
 ### Fáze 6: Rework základního UI
-**Status**: ⬜ Not Started
-**Cíl**: Kompletní přepracování základního shellu (Taskbar, Horní lišta, přepínač virtuálních ploch, přihlašovací obrazovka)
+**Status**: ✅ Complete
+**Cíl**: Kompletní přepracování základního shellu (Zamykací a přihlašovací obrazovka, plovoucí macOS dok, indikátory procesů, odstranění ploch)
 **Depends on**: Fáze 5
 
 **Úkoly:**
-- Modernizace přihlašovací a registrační obrazovky (nové efekty, plynulé animace)
-- Přepracování Taskbaru (ikony otevřených aplikací, indikátor aktivního okna, zobrazení běžících procesů)
-- Horní systémová lišta (rychlé přepínače pro Wifi/Network, hlasitost, stav baterie, systémové hodiny s kalendářem)
-- Zdokonalený přepínač ploch (Workspace Switcher) s vizuálním náhledem otevřených oken
+- [x] Modernizace přihlašovací a registrační obrazovky (zamykací obrazovka, čas/datum v češtině, plovoucí neonové sféry a grid)
+- [x] Přepracování Taskbaru na macOS-style plovoucí dok (Floating Dock) s ikonami otevřených aplikací
+- [x] Živé indikátory procesů (spuštění na pozadí, aktivní okno, snížená průhlednost minimalizovaných aplikací)
+- [x] Odstranění horní lišty a zjednodušení na jedinou plochu (odstranění WorkspaceSwitcheru)
+
 
 ---
 
