@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f172a;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-gaming: var(--font-gaming), cursive;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  user-select: none;
+}
+
+.gaming-font {
+  font-family: var(--font-gaming), cursive;
+}
+
+.neon-text {
+  text-shadow:
+    0 0 10px rgba(59, 130, 246, 0.8),
+    0 0 20px rgba(59, 130, 246, 0.4);
+}
+.neon-green {
+  text-shadow:
+    0 0 10px rgba(74, 222, 128, 0.8),
+    0 0 20px rgba(74, 222, 128, 0.4);
+}
+.neon-red {
+  text-shadow:
+    0 0 10px rgba(248, 113, 113, 0.8),
+    0 0 20px rgba(248, 113, 113, 0.4);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+@keyframes pulse-fast {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulse-fast {
+  animation: pulse-fast 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.winning-line {
+  animation: pulse-fast 0.5s infinite;
+  background-color: rgba(236, 72, 153, 0.3);
+  border-radius: 8px;
+}
+
+.dice-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+.dice-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: #a855f7;
+  cursor: pointer;
+  margin-top: -10px;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+}
+.dice-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #334155;
+  border-radius: 2px;
+}
+.dice-range::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border: none;
+  border-radius: 50%;
+  background: #a855f7;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+}
+.dice-range::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #334155;
+  border-radius: 2px;
 }

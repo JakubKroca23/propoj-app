@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_APPWRITE_ENDPOINT=https://appwrite.propoj.app/v1
+        - NEXT_PUBLIC_APPWRITE_PROJECT_ID=propoj-app
+        - NEXT_PUBLIC_APPWRITE_DATABASE_ID=dopamine_arena
+        - NEXT_PUBLIC_APPWRITE_PLAYERS_TABLE_ID=players
+        - NEXT_PUBLIC_APPWRITE_BETS_TABLE_ID=bets
+    container_name: dopamine-arena
+    restart: unless-stopped
+    networks:
+      - appwrite
+    labels:
+      - "traefik.enable=true"
+      # HTTP Router Configuration
+      - "traefik.http.routers.dopamine-arena.rule=Host(`propoj.app`) || Host(`www.propoj.app`)"
+      - "traefik.http.routers.dopamine-arena.entrypoints=websecure"
+      - "traefik.http.routers.dopamine-arena.tls=true"
+      - "traefik.http.routers.dopamine-arena.tls.certresolver=letsencrypt"
+      # Next.js standalone listens on 3000
+      - "traefik.http.services.dopamine-arena.loadbalancer.server.port=3000"
+      # Security and compress headers
+      - "traefik.http.routers.dopamine-arena.middlewares=dopamine-arena-headers"
+      - "traefik.http.middlewares.dopamine-arena-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.dopamine-arena-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.dopamine-arena-headers.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.dopamine-arena-headers.headers.sslRedirect=true"
+      - "traefik.http.middlewares.dopamine-arena-headers.headers.stsSeconds=31536000"
+
+networks:
+  appwrite:
+    external: true
