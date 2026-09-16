@@ -1,3 +1,6 @@
+# Legacy leftover from the old canvas-os / Traefik tree in this repo.
+# Live production for https://propoj.app moved to https://github.com/JakubKroca23/propoj.app
+# (compose project `propojapp` on the production server). Do not treat this file as current deploy.
 version: '3.8'
 
 services:
@@ -14,7 +17,8 @@ services:
       - appwrite
     labels:
       - "traefik.enable=true"
-      # HTTP Router Configuration
+      # Historical Host rule only — live routing is no longer deployed from this repo.
+      # Production moved to https://github.com/JakubKroca23/propoj.app
       - "traefik.http.routers.propoj-os.rule=Host(`propoj.app`) || Host(`www.propoj.app`)"
       - "traefik.http.routers.propoj-os.entrypoints=websecure"
       - "traefik.http.routers.propoj-os.tls=true"

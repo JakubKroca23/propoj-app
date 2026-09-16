@@ -1,3 +1,4 @@
+# Legacy leftover. Live production for https://propoj.app is https://github.com/JakubKroca23/propoj.app
 # Stage 1: Build stage
 FROM node:20-alpine AS build
 
